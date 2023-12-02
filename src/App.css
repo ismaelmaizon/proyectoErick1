@@ -1,0 +1,18 @@
+.container_1{
+  width: 100%;
+  margin: auto;
+}
+
+.container_2{
+  width: 100%;
+  margin: auto;
+}
+
+.container_3{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%; /* O el ancho que desees */
+  background-color: red; /* Color de fondo opcional */
+  /* Estilos adicionales */
+}

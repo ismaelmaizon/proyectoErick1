@@ -1,0 +1,12 @@
+.container_select{
+    display: flex;
+    width: 100%;
+    color: white;
+    margin: auto;
+    /*background-color: blue; */
+}
+
+.container_select_box{
+    margin: auto;
+    font-size: xx-large;
+}

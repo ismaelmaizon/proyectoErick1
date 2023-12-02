@@ -1,0 +1,18 @@
+.container_Inicio{
+    width: 80%;
+    height: 100%;
+    margin: auto;
+}
+
+.container_Skills{
+    display: flex;
+    color: white;
+    height: 175px;
+}
+
+
+.container_Skills_h1{
+    margin: auto;
+    margin-top: 50px;
+    font-size: 50px;
+}
