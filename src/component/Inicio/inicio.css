@@ -1,3 +1,7 @@
+*{
+    font-family: cursive;
+}
+
 .container_Inicio{
     width: 80%;
     height: 100%;
@@ -6,13 +10,14 @@
 
 .container_Skills{
     display: flex;
-    color: white;
-    height: 175px;
+    color: black;
+    height: 120px;
 }
 
 
 .container_Skills_h1{
     margin: auto;
-    margin-top: 50px;
+    margin-top: 25px;
     font-size: 50px;
 }
+

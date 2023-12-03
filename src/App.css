@@ -1,11 +1,15 @@
 .container_1{
-  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%; /* O el ancho que desees */
   margin: auto;
 }
 
 .container_2{
   width: 100%;
   margin: auto;
+  margin-top: 70px;
 }
 
 .container_3{
@@ -15,4 +19,19 @@
   width: 100%; /* O el ancho que desees */
   background-color: red; /* Color de fondo opcional */
   /* Estilos adicionales */
+}
+
+
+.footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Dividir en tres partes iguales */
+  width: 100%; /* Ocupar el 100% del ancho */
+}
+
+/* Estilos adicionales para cada div interno */
+.footer > div {
+  /* Estilos para cada div interno, por ejemplo: */
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-sizing: border-box;
 }

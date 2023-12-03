@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardFooter, Grid, Heading, Image, Stack, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react";
+import {Card, CardBody, Heading, Image, ListItem, Tab, TabList, TabPanel, TabPanels, Tabs, UnorderedList } from "@chakra-ui/react";
 import React from "react";
 import './inicio.css'
 import { ArrowDownIcon } from '@chakra-ui/icons'
@@ -7,267 +7,119 @@ function Inicio() {
 
     return (
         <div className="container_Inicio">
-
-            <Card
-                borderColor='#242424'
-                backgroundColor='#242424'
-                w='80%'
-                direction={{ base: 'column', sm: 'row' }}
-                overflow='hidden'
-                variant='outline'
-                m={"auto"}
-                mt='35px'
-                >
-                <Image
-                    objectFit='cover'
-                    maxW={{ base: '100%', sm: '200px' }}
-                    src='https://i.ibb.co/RSN9FZq/Whats-App-Image-2023-11-29-at-11-16-49.jpg'
-                    alt='Caffe Latte'
-                />
-
-                <Stack color={"white"}>
-                    <CardBody color={"white"} >
-                        <Heading size='md'>Ismael Maizon</Heading>
-
-                        <Text py='2'>
-                            Estudiante de Ing. en Sitemas
-                        </Text>
-                        <Text py='2'>
-                            Hola que tal?
-                        </Text>
-                        <Text py='2'>
-                            ¡Agradesco tu interes en mi perfil!. ¿Quieres conocer más?
-                        </Text>
-                    <ArrowDownIcon fontSize={'30px'} />
-                    </CardBody>
-                    <CardFooter>
-                        <Button variant='solid' colorScheme='blue'>
-                            Saber más
-                        </Button>
-                    </CardFooter>
-                </Stack>
-            </Card>
             <div className="container_Skills" >
-                <h1 className="container_Skills_h1" >skills...</h1>
+                <h1 className="container_Skills_h1" >Productos</h1>
             </div>
             <Tabs variant='soft-rounded' colorScheme='green' display={"flex"} flexDirection={"column"} alignItems={"center"} >
                 <TabList  >
-                    <Tab>HTML</Tab>
-                    <Tab>CSS</Tab>
-                    <Tab>Js</Tab>
-                    <Tab>React</Tab>
-                    <Tab>MongoBD</Tab>
+                    <Tab>Alfombras</Tab>
+                    <Tab>Impresiones 3D</Tab>
+                    <Tab>Interior</Tab>
+                    <Tab>Aberturas</Tab>
                 </TabList>
 
-                <TabPanels>
+                <TabPanels >
                     <TabPanel>
-                    <Card
-                        borderColor='#242424'
-                        backgroundColor='#242424'
-                        w='80%'
-                        direction={{ base: 'column', sm: 'row' }}
-                        overflow='hidden'
-                        variant='outline'
-                        m={"auto"}
-                        mt='35px'
-                        >
-                        <Image
-                            borderRadius={'15px'}                            
-                            h={'200px'}
-                            objectFit='cover'
-                            maxW={{ base: '100%', sm: '200px' }}
-                            src='https://i.ibb.co/D5rP8qF/html-5-html-5-logo-wallpaper-preview.jpg'
-                            alt='Caffe Latte'
-                        />
-                        <Stack>
-                            <CardBody color={"white"} >
-                                <Heading size='md'>HTML (HyperText Markup Language)</Heading>
-
-                                <Text py='2'>
-                                Estructura de la página web.
-                                </Text>
-                                <Text py='2'>
-                                Semántica.
-                                </Text>
-                                <Text py='2'>
-                                Compatibilidad y estándares (actualmente HTML5).
-                                </Text>
-                                <Text py='2'>
-                                Formularios y validación.
-                                </Text>
+                        <Card
+                            borderColor='#fafad2'
+                            backgroundColor={'#fafad2'}
+                            w='80%'
+                            //overflow='hidden'
+                            //variant='outline'
+                            m={"auto"}
+                            mt='15px'
+                            >
+                            <CardBody color={"black"} display={"flex"} flexDirection={"column"} alignItems={"center"} >
+                                <Heading size='md'>Alfombras</Heading>
+                                <Image
+                                borderRadius={'15px'}  
+                                h={'350px'}
+                                w={'350px'}
+                                objectFit='cover'
+                                src='https://i.ibb.co/YDd3RPp/alfombras4.jpg'
+                                alt='Caffe Latte'
+                                />
+                            </CardBody>
+                            
+                        </Card>
+                    </TabPanel>
+                    <TabPanel>
+                        <Card
+                            borderColor='#fafad2'
+                            backgroundColor={'#fafad2'}
+                            w='80%'
+                            //overflow='hidden'
+                            //variant='outline'
+                            m={"auto"}
+                            mt='15px'
+                            >
+                            <CardBody color={"black"} display={"flex"} flexDirection={"column"} alignItems={"center"} >
+                                <Heading size='md'>Impresiones 3D</Heading>
+                                <Image
+                                borderRadius={'15px'}  
+                                h={'350px'}
+                                w={'350px'}
+                                objectFit='cover'
+                                src='https://s.yimg.com/ny/api/res/1.2/TJNmmq2Vv8ZXKv6CSwhCpg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTQyNw--/https://s.yimg.com/os/creatr-uploaded-images/2023-03/ec6ca1d0-c1bf-11ed-bbf7-d3531bc5f390'
+                                alt='Caffe Latte'
+                                />
                                 
                             </CardBody>
-                        </Stack>
-                    </Card>
+                            
+                        </Card>
                     </TabPanel>
                     <TabPanel>
-                    <Card
-                        borderColor='#242424'
-                        backgroundColor='#242424'
-                        w='80%'
-                        direction={{ base: 'column', sm: 'row' }}
-                        overflow='hidden'
-                        variant='outline'
-                        m={"auto"}
-                        mt='35px'
-                        >
-                       <Image
-                            borderRadius={'15px'}                            
-                            h={'200px'}
-                            objectFit='cover'
-                            maxW={{ base: '100%', sm: '200px' }}
-                            src='https://i.ibb.co/WvGVv4w/css.png'
-                            alt='Caffe Latte'
-                        />
-                        <Stack>
-                            <CardBody color={"white"} >
-                                <Heading size='md'>CSS (Cascading Style Sheets)</Heading>
-
-                                <Text py='2'>
-                                Estilización y diseño.
-                                </Text>
-                                <Text py='2'>
-                                Responsive Web Design (en combinacion con HTML)
-                                </Text>
-                                <Text py='2'>
-                                Compatibilidad y estándares (actualmente HTML5).
-                                </Text>
-                                <Text py='2'>
-                                Reutilización y consistencia de estilos
-                                </Text>
-                                <Text py='2'>
-                                Animaciones y efectos
-                                </Text>
+                        <Card
+                            borderColor='#fafad2'
+                            backgroundColor={'#fafad2'}
+                            w='80%'
+                            //overflow='hidden'
+                            //variant='outline'
+                            m={"auto"}
+                            mt='15px'
+                            >
+                            <CardBody color={"black"} display={"flex"} flexDirection={"column"} alignItems={"center"} >
+                                <Heading size='md'>Interior</Heading>
+                                <Image
+                                borderRadius={'15px'}  
+                                h={'350px'}
+                                w={'350px'}
+                                objectFit='cover'
+                                src='https://i.ibb.co/Srcrf1h/silla1.jpg'
+                                                                
+                                alt='Caffe Latte'
+                                />
                             </CardBody>
-                        </Stack>
-                    </Card>
+                        </Card>
                     </TabPanel>
                     <TabPanel>
-                    <Card
-                        borderColor='#242424'
-                        backgroundColor='#242424'
-                        w='80%'
-                        direction={{ base: 'column', sm: 'row' }}
-                        overflow='hidden'
-                        variant='outline'
-                        m={"auto"}
-                        mt='35px'
-                        >
-                        <Image
-                            borderRadius={'15px'}
-                            h={'200px'}
-                            objectFit='cover'
-                            maxW={{ base: '100%', sm: '200px' }}
-                            src='https://i.ibb.co/r7xLWqB/javascript.jpg'
-                            alt='Caffe Latte'
-                        />
-                        <Stack>
-                            <CardBody color={"white"} >
-                                <Heading size='md'>JavaScript</Heading>
-
-                                <Text py='2'>
-                                Manipulación del DOM.
-                                </Text>
-                                <Text py='2'>
-                                Eventos y manejo de acciones del usuario.
-                                </Text>
-                                <Text py='2'>
-                                Comunicación asincrónica.
-                                </Text>
-                                <Text py='2'>
-                                Manejo de errores y debugging.
-                                </Text>
-                                <Text py='2'>
-                                Seguridad
-                                </Text>
+                        <Card
+                            borderColor='#fafad2'
+                            backgroundColor={'#fafad2'}
+                            w='80%'
+                            //overflow='hidden'
+                            //variant='outline'
+                            m={"auto"}
+                            mt='15px'
+                            >
+                            <CardBody color={"black"} display={"flex"} flexDirection={"column"} alignItems={"center"} >
+                                <Heading size='md'>Aberturas</Heading>
+                                <Image
+                                borderRadius={'15px'}  
+                                h={'350px'}
+                                w={'350px'}
+                                objectFit='cover'
+                                src='https://i.ibb.co/82hBxRy/puff2.jpg'                                
+                                alt='Caffe Latte'
+                                />
+                                
                             </CardBody>
-                        </Stack>
-                    </Card>
-                    </TabPanel>
-                    <TabPanel>
-                    <Card
-                        borderColor='#242424'
-                        backgroundColor='#242424'
-                        w='80%'
-                        direction={{ base: 'column', sm: 'row' }}
-                        overflow='hidden'
-                        variant='outline'
-                        m={"auto"}
-                        mt='35px'
-                        >
-                        <Image
-                            borderRadius={'15px'}
-                            h={'200'}
-                            objectFit='cover'
-                            maxW={{ base: '100%', sm: '200px' }}
-                            src='https://i.ibb.co/Jryy82Z/react.jpg'
-                            alt='Caffe Latte'
-                        />
-                        <Stack>
-                            <CardBody color={"white"} >
-                                <Heading size='md'>React</Heading>
-
-                                <Text py='2'>
-                                Virtual DOM.
-                                </Text>
-                                <Text py='2'>
-                                Estado (state) y ciclo de vida (lifecycle).
-                                </Text>
-                                <Text py='2'>
-                                Herramientas y biblioteca.
-                                </Text>
-                                <Text py='2'>
-                                Manejo de errores y debugging.
-                                </Text>
-                                <Text py='2'>
-                                React Hooks
-                                </Text>
-                            </CardBody>
-                        </Stack>
-                    </Card>
-                    </TabPanel>
-                    <TabPanel>
-                    <Card
-                        borderColor='#242424'
-                        backgroundColor='#242424'
-                        w='80%'
-                        direction={{ base: 'column', sm: 'row' }}
-                        overflow='hidden'
-                        variant='outline'
-                        m={"auto"}
-                        mt='35px'
-                        >
-                        <Image
-                            borderRadius={'15px'}
-                            h={'200px'}
-                            objectFit='cover'
-                            maxW={{ base: '100%', sm: '200px' }}
-                            src='https://i.ibb.co/X35FFtz/mongo.png'
-                            alt='Caffe Latte'
-                        />
-                        <Stack>
-                            <CardBody color={"white"} >
-                                <Heading size='md'>Mongodb</Heading>
-
-                                <Text py='2'>
-                                Sistema de base de datos NoSQL.
-                                </Text>
-                                <Text py='2'>
-                                Modelo de datos flexible.
-                                </Text>
-                                <Text py='2'>
-                                Escalabilidad.
-                                </Text>
-                                <Text py='2'>
-                                Alto rendimiento.
-                                </Text>
-                            </CardBody>
-                        </Stack>
-                    </Card>
+                            
+                        </Card>
                     </TabPanel>
                 </TabPanels>
+                
             </Tabs>
-            
         </div>
     )
   }

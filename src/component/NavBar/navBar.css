@@ -1,7 +1,7 @@
 .container_select{
     display: flex;
     width: 100%;
-    color: white;
+    color: black;
     margin: auto;
     /*background-color: blue; */
 }
@@ -9,4 +9,12 @@
 .container_select_box{
     margin: auto;
     font-size: xx-large;
+    font-family: 'Cursive';
 }
+
+
+.container_select_form{
+    display: flex;
+    width: 350px;
+}
+
