@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Inicio from './component/Inicio/inicio'
 import NavBar from './component/NavBar/navBar'
+import AddProducto from './component/AgregarProducto/addProduct'
 import { ListItem, UnorderedList } from '@chakra-ui/react'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <div className='container_2'>
           <Routes>
             <Route element={<Inicio/>} path='/' ></Route>
+            <Route element={<AddProducto/>} path='/addproducto' ></Route>
           </Routes>
         </div>
         
