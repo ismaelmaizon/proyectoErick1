@@ -7,6 +7,7 @@ import {
   FormControl,
   Input,
   Button,
+  Select,
 } from '@chakra-ui/react'
 import './addProduct.css'
 
@@ -27,7 +28,7 @@ function AddProducto() {
           }, 3000)
         })
       }
- 
+    console.log(getValues());
     return (
         <div>
             <h1 className="formulario_title">AGREGAR PRODUCTO</h1>
@@ -57,6 +58,18 @@ function AddProducto() {
                     <FormErrorMessage>
                     {errors.name && errors.name.message}
                     </FormErrorMessage>
+                    <FormLabel htmlFor='descripcion' mt={5} >Descripcion del Producto</FormLabel>
+                    <Input
+                    id='descripcion'
+                    placeholder='brebe descripcion del producto'
+                    {...register('descripcion', {
+                        required: 'This is required',
+                        minLength: { value: 4, message: 'Minimum length should be 4' },
+                    })}
+                    />
+                    <FormErrorMessage>
+                    {errors.name && errors.name.message}
+                    </FormErrorMessage>
                     <FormLabel htmlFor='stock' mt={5} >Stock Actual</FormLabel>
                     <Input
                     id='stock'
@@ -70,17 +83,12 @@ function AddProducto() {
                     {errors.name && errors.name.message}
                     </FormErrorMessage>
                     <FormLabel htmlFor='tipo' mt={5} >Tipo</FormLabel>
-                    <Input
-                    id='tipo'
-                    placeholder='ingrese tipo de producto'
-                    {...register('tipo', {
-                        required: 'This is required',
-                        minLength: { value: 4, message: 'Minimum length should be 4' },
-                    })}
-                    />
-                    <FormErrorMessage>
-                    {errors.name && errors.name.message}
-                    </FormErrorMessage>
+                    <Select placeholder='Select option' {...register('tipo')} >
+                        <option value='Alfombra'>Alfombra</option>
+                        <option value='Impresion 3D'>Impresion 3D</option>
+                        <option value='Interior'>Interior</option>
+                        <option value='Abertura'>Abertura</option>
+                    </Select>
                     <FormLabel htmlFor='url' mt={5} >URL de Imagen</FormLabel>
                     <Input
                     id='url'
