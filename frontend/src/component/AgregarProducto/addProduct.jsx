@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import { useForm } from 'react-hook-form'
 import {
@@ -10,8 +10,13 @@ import {
   Select,
 } from '@chakra-ui/react'
 import './addProduct.css'
+import { MiContexto } from "../contexto/contex";
+
+
 
 function AddProducto() {
+
+    const {productos} = useContext(MiContexto)
 
     const {
         handleSubmit,
@@ -27,8 +32,11 @@ function AddProducto() {
             resolve()
           }, 3000)
         })
-      }
+    }
+
+    //Logs
     console.log(getValues());
+    console.log(productos);
     return (
         <div>
             <h1 className="formulario_title">AGREGAR PRODUCTO</h1>

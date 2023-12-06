@@ -5,12 +5,14 @@ import Inicio from './component/Inicio/inicio'
 import NavBar from './component/NavBar/navBar'
 import AddProducto from './component/AgregarProducto/addProduct'
 import { ListItem, UnorderedList } from '@chakra-ui/react'
+import CartProvider from './component/contexto/contex'
 
 function App() {
   
 
   return (
-    <div >
+    
+      <CartProvider>
         <div className='container_1' >
           <NavBar/>
         </div>
@@ -38,7 +40,8 @@ function App() {
                 <div>hola</div>
                 <div>hola</div>
             </div>
-      </div>
+      </CartProvider>
+    
   )
 }
 

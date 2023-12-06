@@ -1,11 +1,12 @@
 import express  from "express";
-import { agregarProducto } from "../controllers/crudProductos.js";
+import { agregarProducto, getProducto } from "../controllers/crudProductos.js";
 
 
 const router = express.Router()
 
 
 router.post('/agregarProducto', agregarProducto)
+router.get('/getProductos', getProducto)
 
 
 export default router

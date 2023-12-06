@@ -16,3 +16,11 @@ export const agregarProducto = async (req, res) => {
     console.log(result);
     res.send( { status : 200, producto: result } )
 }
+
+
+
+export const getProducto = async (req, res) => {
+    let result = await productsModel.find()
+    console.log(result);
+    res.send( result )
+}
