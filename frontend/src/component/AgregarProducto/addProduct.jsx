@@ -10,13 +10,11 @@ import {
   Select,
 } from '@chakra-ui/react'
 import './addProduct.css'
-import { MiContexto } from "../contexto/contex";
 
 
 
 function AddProducto() {
 
-    const {productos} = useContext(MiContexto)
 
     const {
         handleSubmit,
@@ -36,7 +34,6 @@ function AddProducto() {
 
     //Logs
     console.log(getValues());
-    console.log(productos);
     return (
         <div>
             <h1 className="formulario_title">AGREGAR PRODUCTO</h1>

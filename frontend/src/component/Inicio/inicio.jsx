@@ -1,11 +1,16 @@
-import {Card, CardBody, Heading, Image, ListItem, Tab, TabList, TabPanel, TabPanels, Tabs, UnorderedList } from "@chakra-ui/react";
+import {Card, CardBody, Heading, Image, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import React from "react";
 import './inicio.css'
-import { ArrowDownIcon } from '@chakra-ui/icons'
+
+
+import Allproductos from "../AllProductos/allproducts";
 
 function Inicio() {
 
+
     return (
+    
+
         <div className="container_Inicio">
             <div className="container_Skills" >
                 <h1 className="container_Skills_h1" >Productos</h1>
@@ -120,7 +125,10 @@ function Inicio() {
                 </TabPanels>
                 
             </Tabs>
+            <h1>AllProducts</h1>
+            <Allproductos/>
         </div>
+
     )
   }
   
