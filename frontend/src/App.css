@@ -4,6 +4,7 @@
   top: 0;
   width: 100%; /* O el ancho que desees */
   margin: auto;
+  z-index: 1;
 }
 
 .container_2{

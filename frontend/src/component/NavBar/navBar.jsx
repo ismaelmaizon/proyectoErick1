@@ -46,7 +46,7 @@ function NavBar() {
             resolve()
           }, 3000)
         })
-      }
+    }
 
     return (
         <Grid w='100%' h='70px' templateColumns='repeat(3, 1fr)' gap={2} backgroundColor={'#fafad2'}>
@@ -97,6 +97,6 @@ function NavBar() {
             </div>
         </Grid>
     )
-  }
-  
-  export default NavBar
+}
+
+export default NavBar
