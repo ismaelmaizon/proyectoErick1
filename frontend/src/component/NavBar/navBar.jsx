@@ -1,6 +1,7 @@
 import React from "react";
 import {Grid, GridItem, Stack, Tab, TabList, Tabs } from '@chakra-ui/react'
 import './navBar.css'
+import { Link, Route } from "react-router-dom";
 
 //form
 import { useForm } from 'react-hook-form'
@@ -15,6 +16,7 @@ import {
 //icons
 
 import { ChevronDownIcon, Search2Icon, SearchIcon } from '@chakra-ui/icons'
+import { BsCartCheck } from "react-icons/bs";
 
 
 //menu
@@ -29,6 +31,8 @@ import {
     MenuOptionGroup,
     MenuDivider,
   } from '@chakra-ui/react'
+import { redirect } from "react-router-dom";
+import Cart from "../Cart/cart";
 
 
 function NavBar() {
@@ -51,7 +55,9 @@ function NavBar() {
     return (
         <Grid w='100%' h='70px' templateColumns='repeat(3, 1fr)' gap={2} backgroundColor={'#fafad2'}>
             <div className="container_select">
-                <h1 className="container_select_box" >AtelierBodereau</h1>
+                <Link className="container_select_box" to='/'>
+                    <h1>AtelierBodereau</h1>
+                </Link>
             </div>
             <div className="container_select">
                 <form onSubmit={handleSubmit(onSubmit)} className="container_select_form">
@@ -93,6 +99,12 @@ function NavBar() {
                     <Button backgroundColor={'#ffe4b5'} variant='solid'>
                         Novedades
                     </Button>
+                    <Link to= '/Cart'>
+                        <Button backgroundColor={'#ffe4b5'} variant='solid' >
+                            <BsCartCheck />
+                        </Button>
+                    </Link>
+                    
                 </Stack>
             </div>
         </Grid>

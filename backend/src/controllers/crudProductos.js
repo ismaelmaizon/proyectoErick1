@@ -18,9 +18,15 @@ export const agregarProducto = async (req, res) => {
 }
 
 
+export const getProductos = async (req, res) => {
+    let result = await productsModel.find()
+    console.log(result);
+    res.send( result )
+}
 
 export const getProducto = async (req, res) => {
-    let result = await productsModel.find()
+    console.log(req.params.id);
+    let result = await productsModel.findById(req.params.id)
     console.log(result);
     res.send( result )
 }

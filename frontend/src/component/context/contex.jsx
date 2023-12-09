@@ -19,8 +19,8 @@ export const MiContexto = createContext([])
 
 const CartProvider = ({children}) => {
     
+    //contexto productos
     const [productos, setProdusctos] = useState([])
-
     
     const getProducts = async () => {
         try {
@@ -34,6 +34,17 @@ const CartProvider = ({children}) => {
     };
 
 
+
+    //contexto carrito
+    const [ cart, setCart] = useState([])
+    let [contadorCart, setContadorCart] = useState(0)
+
+    const addCart = async ( productoId) => {
+        cart.push(productoId)
+        setCart(cart)
+    }
+
+
     useEffect(() => {
        getProducts()
     }, []);
@@ -41,7 +52,9 @@ const CartProvider = ({children}) => {
 
     return (
         // aca llamamos al hoock useMiContexto
-        <MiContexto.Provider value={{productos}} >
+        <MiContexto.Provider value={{
+        productos, 
+        cart, setCart, contadorCart, setContadorCart, addCart}} >
             {children}
         </MiContexto.Provider>
     )
