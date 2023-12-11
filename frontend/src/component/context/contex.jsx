@@ -39,8 +39,8 @@ const CartProvider = ({children}) => {
     const [ cart, setCart] = useState([])
     let [contadorCart, setContadorCart] = useState(0)
 
-    const addCart = async ( productoId) => {
-        cart.push(productoId)
+    const addCart = async ( producto) => {
+        cart.push(producto)
         setCart(cart)
     }
 

@@ -39,7 +39,7 @@ function Allproductos () {
                         </CardBody>
                         <CardFooter p={2} >
                             <ButtonGroup w='100%' m='auto' display='flex' flexDirection='row' >
-                                <Button variant='solid' colorScheme='blue' color='black' w='75%' fontSize={12} onClick={ async () => agregarAlCart(el._id) } >
+                                <Button variant='solid' colorScheme='blue' color='black' w='75%' fontSize={12} onClick={ async () => agregarAlCart(el) } >
                                     Comprar
                                 </Button>
                                 <Button variant='solid' colorScheme='blue' color='black' w='75%' fontSize={12}>

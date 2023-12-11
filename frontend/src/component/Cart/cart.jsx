@@ -1,21 +1,16 @@
 import { Button, Card, CardBody, CardFooter, Heading, Image, Stack, Text } from '@chakra-ui/react';
-import react, { useState } from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { MiContexto } from '../context/contex';
-import axios from 'axios';
-import { useEffect } from 'react';
-
 
 
 function Cart () {
 
     
     const { cart} = useContext(MiContexto)
-    const [cart2, setCart2 ] = useState([])
 
 
     console.log(cart);
-
+    /*
     const getProduct = async (id) => {
         try {
             const response = await axios.get(`http://localhost:8080/api/auth/getProducto/${id}`);
@@ -27,58 +22,44 @@ function Cart () {
         }
     }
     
-    useEffect( () => {
-        cart.map( (el) => {
-            cart2.push(getProduct(el))
-            console.log(cart2);
-        });
-        setCart2(cart2);
-
-    }, [] )
+    */
     
     return (
-        <div>{
-            
-            cart2.map( (el, idex) => {
-                console.log('cart');
-                console.log(el);
-                <Card key = {idex}
-                direction={{ base: 'column', sm: 'row' }}
-                overflow='hidden'
-                variant='outline'>
-                <Image
-                objectFit='cover'
-                maxW={{ base: '100%', sm: '200px' }}
-                src={el.url}
-                alt='Caffe Latte'
-                />
-            
-                <Stack>
-                <CardBody>
-                        <Heading size='md'>The perfect latte</Heading>
-                
-                        <Text py='2'>
-                        Caffè latte is a coffee beverage of Italian origin made with espresso
-                        and steamed milk.
-                        </Text>
-                    </CardBody>
-                    
-                    <CardFooter>
-                    <Button variant='solid' colorScheme='blue'>
-                        Buy Latte
-                        </Button>
-                    </CardFooter>
-                </Stack>
-                </Card>
-            })
-            
-               
+        <div className='container_carrito'>
+            {
+                cart.map( (el) => {
+                    console.log(el);
+                    return (
+                        <Card
+                            w='75%' m={'auto'} mt='25px'
+                            >
+                            <Image
+                                objectFit='cover'
+                                maxW={{ base: '100%', sm: '200px' }}
+                                src={el.url}
+                                alt='Caffe Latte'
+                            />
+
+                            <Stack>
+                                <CardBody>
+                                <Heading size='md'>{el.name}</Heading>
+
+                                <Text py='2'>
+                                    {el.description}
+                                </Text>
+                                </CardBody>
+
+                                <CardFooter>
+                                <Button variant='solid' colorScheme='blue'>
+                                    Buy Latte
+                                </Button>
+                                </CardFooter>
+                            </Stack>
+                        </Card>
+                    )
+                })
             }
-           
-           
-            
-           </div>
-           )
+        </div>)
 
 
 }
