@@ -1,3 +1,13 @@
 .container_carrito{
-    margin-top: '15px'
+    width: 80%;
+    margin: auto;
 }
+
+
+.container_carrito_title{
+    width: 75%;
+    margin: auto;
+    padding-top: 50px;
+    font-size: 20px;
+}
+
