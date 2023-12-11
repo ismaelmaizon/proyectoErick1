@@ -24,6 +24,9 @@
 
 
 .footer {
+  position: unset;
+  left: 0;
+  bottom: 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr; /* Dividir en tres partes iguales */
   width: 100%; /* Ocupar el 100% del ancho */
