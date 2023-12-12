@@ -12,3 +12,17 @@
     font-size: 20px;
 }
 
+.cart_buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.cart_buttons_cont{
+    margin: 10px;
+    margin: auto;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}

@@ -26,10 +26,6 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    MenuItemOption,
-    MenuGroup,
-    MenuOptionGroup,
-    MenuDivider,
   } from '@chakra-ui/react'
 import { redirect } from "react-router-dom";
 import Cart from "../Cart/cart";

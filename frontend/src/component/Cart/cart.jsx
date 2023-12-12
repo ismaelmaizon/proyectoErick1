@@ -1,5 +1,5 @@
-import { Button, Card, CardBody, CardFooter, Heading, Image, Stack, Text } from '@chakra-ui/react';
-import React, { useContext } from 'react';
+import { Button, Card, CardBody, CardFooter, Grid, Heading, Image, Stack, Text } from '@chakra-ui/react';
+import React, { useContext, useState } from 'react';
 import { MiContexto } from '../context/contex';
 import './cart.css'
 
@@ -7,7 +7,24 @@ import './cart.css'
 function Cart () {
 
     
-    const { cart} = useContext(MiContexto)
+    const { cart, deletProductCart} = useContext(MiContexto)
+
+    //constador de productos
+    const [cont, setCont] = useState(1)
+
+    function sumCont () {
+        setCont(cont+1)
+    };
+    
+    function resCont () {
+        if (cont-1 <= 1) {
+            setCont(1)
+        }else{
+            setCont(cont-1)
+        }
+    }
+
+    
 
 
     console.log(cart);
@@ -44,24 +61,33 @@ function Cart () {
                                 alt='Caffe Latte'
                             />
 
-                            <Stack>
-                                <CardBody display={"flex"} flexDirection={"row"} gap={300}>
-                                    <Heading size='md'>{el.name}</Heading>
+                            
+                            <Grid templateColumns={'repeat(2, 1fr)'} gap={20} margin={'auto'} w='100%'>
+                                <Heading size='md' m={3} >{el.name}</Heading>
 
-                                    <div>
-                                        <Button variant='solid' colorScheme='blue'>
-                                            Buy Latte
+                                <div className='cart_buttons' >
+                                    <div className='cart_buttons_cont' >
+                                        <Button variant='solid' colorScheme='blue' onClick={ () => resCont()}>
+                                            -
                                         </Button>
-                                        <Button variant='solid' colorScheme='blue'>
-                                            Buy Latte
+                                        <h3>{cont}</h3>
+                                        <Button variant='solid' colorScheme='blue' onClick={ () => sumCont()}>
+                                            +
                                         </Button>
                                     </div>
-                                </CardBody>
-                            </Stack>
+                                    <Button variant='solid' colorScheme='blue' onClick={ () => deletProductCart(el) } >
+                                        delete
+                                    </Button>
+                                </div>
+                            </Grid>
+                            
                         </Card>
                     )
                 })
             }
+            </div>
+            <div>
+                
             </div>
             
         </div>)

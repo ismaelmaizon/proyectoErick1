@@ -37,13 +37,22 @@ const CartProvider = ({children}) => {
 
     //contexto carrito
     const [ cart, setCart] = useState([])
-    let [contadorCart, setContadorCart] = useState(0)
 
+    //agregar al carrito
     const addCart = async ( producto) => {
         cart.push(producto)
         setCart(cart)
     }
-
+    //eliminar producto del carrito
+    const deletProductCart = async ( producto) => {
+        let cart2 = []
+        cart.map( (el) => {
+            if (el._id != producto._id) {
+                cart2.push(el)
+            } 
+        })
+        setCart(cart2)
+    }
 
     useEffect(() => {
        getProducts()
@@ -54,7 +63,7 @@ const CartProvider = ({children}) => {
         // aca llamamos al hoock useMiContexto
         <MiContexto.Provider value={{
         productos, 
-        cart, setCart, contadorCart, setContadorCart, addCart}} >
+        cart, setCart, addCart, deletProductCart}} >
             {children}
         </MiContexto.Provider>
     )
