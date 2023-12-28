@@ -94,11 +94,12 @@ function AddProducto() {
                         <option value='Interior'>Interior</option>
                         <option value='Abertura'>Abertura</option>
                     </Select>
-                    <FormLabel htmlFor='url' mt={5} >URL de Imagen</FormLabel>
+                    <FormLabel htmlFor='image' mt={5} >Imagen</FormLabel>
                     <Input
-                    id='url'
-                    placeholder='ingrese url de imagen de producto'
-                    {...register('url', {
+                    id='image'
+                    type="file"
+                    placeholder='ingrese imagen de producto'
+                    {...register('image', {
                         required: 'This is required',
                         minLength: { value: 4, message: 'Minimum length should be 4' },
                     })}
