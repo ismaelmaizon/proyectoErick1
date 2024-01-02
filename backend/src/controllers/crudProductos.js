@@ -3,9 +3,7 @@ import productsModel from "../db/models/product.model.js";
 
 export const agregarProducto = async (req, res) => {
     const producto = req.body
-    const file = req.file
     console.log(producto);
-    console.log(file);
     /*
     let newProduct = {
         name : producto.name,

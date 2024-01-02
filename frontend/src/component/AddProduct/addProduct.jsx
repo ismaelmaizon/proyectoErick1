@@ -38,7 +38,7 @@ function AddProducto() {
         <div>
             <h1 className="formulario_title">AGREGAR PRODUCTO</h1>
             <form onSubmit={handleSubmit(onSubmit)} className='formulario'>
-                <FormControl isInvalid={errors.name}>
+                <FormControl isInvalid={errors.name}  >
                     <FormLabel htmlFor='name' mt={5} >Nombre Producto</FormLabel>
                     <Input
                     id='name'
@@ -109,10 +109,27 @@ function AddProducto() {
                     </FormErrorMessage>
                     
                     
-                    <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit' onClick={()=>{
+                    <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'  onClick={()=>{
                         const producto = getValues();
-                        console.log(producto);
-                        axios.post('http://localhost:8080/api/auth/agregarProducto', producto)
+                        const img = producto.image[0];
+                        console.log(img.name);
+                        console.log(img.size);
+                        let image = {
+                            'name': img.name,
+                            'size' : img.size,
+                            'type': img.type
+                        }
+                        let prod = {}
+                        prod = {
+                            name: producto.name,
+                            precio: producto.precio,
+                            descripcion: producto.descripcion,
+                            stock: producto.stock,
+                            tipo: producto.tipo,
+                            image: image
+                        }
+                        console.log(prod);
+                        axios.post('http://localhost:8080/api/auth/agregarProducto', prod)
                             .then( response => {
                                 // Manejar la respuesta del servidor si es necesario
                                 console.log('Usuario creado:', response.data);
