@@ -6,17 +6,17 @@ export const agregarProducto = async (req, res) => {
     const img = req.file
     console.log(producto);
     console.log(img);
-    /*
+    
     let newProduct = {
         name : producto.name,
         description : producto.descripcion,
         price : producto.precio,
         stock : producto.stock,
         tipo : producto.tipo,
-        image : producto.image
+        url : img.path
     }
     let result = await productsModel.create(newProduct)
-    console.log(result);*/
+    console.log(result);
     res.send( { status : 200 /*producto: result*/ } )
 }
 
