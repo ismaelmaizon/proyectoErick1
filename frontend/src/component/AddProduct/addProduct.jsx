@@ -21,14 +21,14 @@ function AddProducto() {
         register,
         getValues,
         formState: { errors, isSubmitting },
-      } = useForm()
+    } = useForm()
     
-      function onSubmit(values) {
+    function onSubmit(values) {
         return new Promise((resolve) => {
-          setTimeout(() => {
+        setTimeout(() => {
             alert(JSON.stringify(values, null, 2))
             resolve()
-          }, 3000)
+        }, 3000)
         })
     }
 
@@ -37,7 +37,7 @@ function AddProducto() {
     return (
         <div>
             <h1 className="formulario_title">AGREGAR PRODUCTO</h1>
-            <form onSubmit={handleSubmit(onSubmit)} className='formulario'>
+            <form onSubmit={handleSubmit(onSubmit)} className='formulario' action="/upload" method="post" encType="multipart/form-data" >
                 <FormControl isInvalid={errors.name}  >
                     <FormLabel htmlFor='name' mt={5} >Nombre Producto</FormLabel>
                     <Input
@@ -97,7 +97,8 @@ function AddProducto() {
                     <FormLabel htmlFor='image' mt={5} >Imagen</FormLabel>
                     <Input
                     id='image'
-                    type="file"
+                    type="file" 
+                    name="image"
                     placeholder='ingrese imagen de producto'
                     {...register('image', {
                         required: 'This is required',
@@ -109,35 +110,25 @@ function AddProducto() {
                     </FormErrorMessage>
                     
                     
-                    <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'  onClick={()=>{
+                    <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'  onClick={ async ()=>{
                         const producto = getValues();
-                        const img = producto.image[0];
-                        console.log(img.name);
-                        console.log(img.size);
-                        let image = {
-                            'name': img.name,
-                            'size' : img.size,
-                            'type': img.type
-                        }
-                        let prod = {}
-                        prod = {
-                            name: producto.name,
-                            precio: producto.precio,
-                            descripcion: producto.descripcion,
-                            stock: producto.stock,
-                            tipo: producto.tipo,
-                            image: image
-                        }
-                        console.log(prod);
-                        axios.post('http://localhost:8080/api/auth/agregarProducto', prod)
-                            .then( response => {
-                                // Manejar la respuesta del servidor si es necesario
-                                console.log('Usuario creado:', response.data);
-                            } )
-                            .catch(error => {
-                                // Manejar cualquier error que pueda ocurrir durante la solicitud
-                                console.error('Error al crear el usuario:', error);
+                        const formData = new FormData();
+                        formData.append('name', producto.name);
+                        formData.append('precio', producto.precio);
+                        formData.append('descripcion', producto.descripcion);
+                        formData.append('stock', producto.stock);
+                        formData.append('tipo', producto.tipo);
+                        formData.append('image', producto.image[0]);
+                        try {
+                            const response = await axios.post('http://localhost:8080/api/auth/agregarProducto', formData, {
+                              headers: {
+                                'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
+                              },
                             });
+                            console.log('Producto creado:', response.data);
+                          } catch (error) {
+                            console.error('Error al crear el producto:', error);
+                          }
                     } } >
                         crear
                     </Button>
