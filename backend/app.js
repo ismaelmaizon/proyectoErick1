@@ -13,6 +13,11 @@ import { v4 as uuidv4 } from 'uuid';
 import __dirname from './src/utils.js';
 
 const app = express()
+
+// Configuración para servir archivos estáticos
+app.use('/static', express.static('src/img'));
+
+
 //Settings 
 const port = process.env.PORT
 

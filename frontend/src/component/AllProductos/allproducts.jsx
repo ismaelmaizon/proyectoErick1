@@ -23,8 +23,7 @@ function Allproductos () {
                     <Card key={index} mb={75} backgroundColor={'#fafad2'} >
                         <CardBody >
                             <Image
-                            src={el.url}
-                            alt='Green double couch with wooden legs'
+                            src={`http://localhost:8080/static/${el.url}`}
                             borderRadius='lg'
                             />
                             <Stack mt='6' spacing='3'>

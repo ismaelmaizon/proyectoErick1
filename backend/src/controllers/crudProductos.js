@@ -13,7 +13,7 @@ export const agregarProducto = async (req, res) => {
         price : producto.precio,
         stock : producto.stock,
         tipo : producto.tipo,
-        url : img.path
+        url : img.filename
     }
     let result = await productsModel.create(newProduct)
     console.log(result);
