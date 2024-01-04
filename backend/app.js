@@ -14,13 +14,12 @@ import __dirname from './src/utils.js';
 
 const app = express()
 
-// Configuración para servir archivos estáticos
-app.use('/static', express.static('src/img'));
-
 
 //Settings 
 const port = process.env.PORT
-
+// Configuración para servir archivos estáticos
+app.use('/static', express.static('src/img'));
+app.use('/static', express.static('src/cv'));
 
 //conexion db
 connectDB()
@@ -31,16 +30,26 @@ app.use(morgan('dev')) // permite ver en consola los pedidos realizados al servi
 app.use(express.urlencoded({extended:false})) //permite poder entender lo que los formularios me estan enviando
 
 console.log('ruta ' + __dirname);
-
-
-const storage = multer.diskStorage({
-    destination: __dirname + '/img',
-    filename: function (req, file, cb) {
-      cb(null, uuidv4() + path.extname(file.originalname)); // uuidv4() + path.extname(file.originalname) concatenacion de un nuevo ID mas la extencion de archivo subido
-    }
+/*
+// carga de imagen
+const storage = multer.diskStorage({  
+  destination: __dirname + '/img',
+  filename: function (req, file, cb) {
+    cb(null, uuidv4() + path.extname(file.originalname)); // uuidv4() + path.extname(file.originalname) concatenacion de un nuevo ID mas la extencion de archivo subido
+  },
 });
   
 app.use(multer({ storage: storage }).single('image'))
+*/
+// carga de CV
+const storage2 = multer.diskStorage({
+  destination: __dirname + '/cv',
+  filename: function (req, file, cb) {
+    cb(null, uuidv4() + path.extname(file.originalname)); // uuidv4() + path.extname(file.originalname) concatenacion de un nuevo ID mas la extencion de archivo subido
+  }
+});
+
+app.use(multer({ storage: storage2 }).single('cv'))
 
 //Routes
 app.use('/api', router)

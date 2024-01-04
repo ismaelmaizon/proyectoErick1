@@ -96,7 +96,6 @@ function AddProducto() {
                     </Select>
                     <FormLabel htmlFor='image' mt={5} >Imagen</FormLabel>
                     <Input
-                    id='image'
                     type="file" 
                     name="image"
                     placeholder='ingrese imagen de producto'
