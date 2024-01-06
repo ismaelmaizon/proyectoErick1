@@ -33,6 +33,21 @@ const CartProvider = ({children}) => {
         }
     };
 
+    //obtener un producto
+    const [productoId, setProdusctoID] = useState('')
+    const [producto, setProduscto] = useState({})
+    
+    const getProduct = async (productoId) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/auth/getProducto/${productoId}`);
+            // Manejar la respuesta del servidor y actualizar el estado con los productos obtenidos
+            setProduscto(response.data);
+            console.log('Producto:', response.data);
+        } catch (error) {
+            console.error('Error al obtener el producto:', error);
+        }
+    };
+
 
 
     //contexto carrito
@@ -63,6 +78,7 @@ const CartProvider = ({children}) => {
         // aca llamamos al hoock useMiContexto
         <MiContexto.Provider value={{
         productos, 
+        productoId, setProdusctoID, getProduct, producto,
         cart, setCart, addCart, deletProductCart}} >
             {children}
         </MiContexto.Provider>

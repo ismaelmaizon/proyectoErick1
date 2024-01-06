@@ -3,12 +3,14 @@ import { MiContexto } from "../context/contex";
 import { Button, ButtonGroup, Card, CardBody, CardFooter, Divider, Grid, Heading, Image, Stack, Text, grid } from "@chakra-ui/react";
 
 import './allproducts.css'
+import { Link } from "react-router-dom";
 
 
 
 function Allproductos () {
 
-    const {productos,  addCart} = useContext(MiContexto)
+    const {productos,  addCart,  
+        setProdusctoID} = useContext(MiContexto)
     
     function agregarAlCart (id) {
         addCart(id)
@@ -41,8 +43,8 @@ function Allproductos () {
                                 <Button variant='solid' colorScheme='blue' color='black' w='75%' fontSize={12} onClick={ async () => agregarAlCart(el) } >
                                     Comprar
                                 </Button>
-                                <Button variant='solid' colorScheme='blue' color='black' w='75%' fontSize={12}>
-                                    Detalles
+                                <Button variant='solid' colorScheme='blue' color='black' w='75%' fontSize={12} onClick={ async () => setProdusctoID(el._id)} >
+                                    <Link to={'/productDetail'} > Detalles </Link>
                                 </Button>
                             </ButtonGroup>
                         </CardFooter>

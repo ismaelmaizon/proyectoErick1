@@ -1,7 +1,7 @@
-import {Card, CardBody, Heading, Image, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import {Button, Card, CardBody, Heading, Image, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import React from "react";
 import './inicio.css'
-
+import { Link } from "react-router-dom";
 
 import Allproductos from "../AllProductos/allproducts";
 
@@ -22,7 +22,6 @@ function Inicio() {
                     <Tab>Interior</Tab>
                     <Tab>Aberturas</Tab>
                 </TabList>
-
                 <TabPanels >
                     <TabPanel>
                         <Card
@@ -125,6 +124,9 @@ function Inicio() {
                 </TabPanels>
                 
             </Tabs>
+            <Button display={"flex"} m={"auto"} p={25} backgroundColor={'#ffe4b5'} >
+                    <Link to={'/addproducto'} >Agregar nuevo producto</Link>
+            </Button>
             <h1>AllProducts</h1>
             <Allproductos/>
         </div>

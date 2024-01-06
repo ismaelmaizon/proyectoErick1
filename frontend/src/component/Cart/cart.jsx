@@ -9,24 +9,6 @@ function Cart () {
     
     const { cart, deletProductCart} = useContext(MiContexto)
 
-    //constador de productos
-    const [cont, setCont] = useState(1)
-
-    function sumCont () {
-        setCont(cont+1)
-    };
-    
-    function resCont () {
-        if (cont-1 <= 1) {
-            setCont(1)
-        }else{
-            setCont(cont-1)
-        }
-    }
-
-    
-
-
     console.log(cart);
     /*
     const getProduct = async (id) => {
@@ -66,15 +48,6 @@ function Cart () {
                                 <Heading size='md' m={3} >{el.name}</Heading>
 
                                 <div className='cart_buttons' >
-                                    <div className='cart_buttons_cont' >
-                                        <Button variant='solid' colorScheme='blue' onClick={ () => resCont()}>
-                                            -
-                                        </Button>
-                                        <h3>{cont}</h3>
-                                        <Button variant='solid' colorScheme='blue' onClick={ () => sumCont()}>
-                                            +
-                                        </Button>
-                                    </div>
                                     <Button variant='solid' colorScheme='blue' onClick={ () => deletProductCart(el) } >
                                         delete
                                     </Button>

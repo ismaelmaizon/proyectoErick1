@@ -20,25 +20,6 @@ export const agregarProducto = async (req, res) => {
     res.send( { status : 200 /*producto: result*/ } )
 }
 
-export const agregarCv = async (req, res) => {
-    const nombre = req.body
-    const cv = req.file
-    console.log(nombre);
-    console.log(cv);
-    /*
-    let newProduct = {
-        name : producto.name,
-        description : producto.descripcion,
-        price : producto.precio,
-        stock : producto.stock,
-        tipo : producto.tipo,
-        url : img.filename
-    }
-    let result = await productsModel.create(newProduct)
-    console.log(result);*/
-    res.send( { status : 200 /*producto: result*/ } )
-}
-
 
 export const getProductos = async (req, res) => {
     let result = await productsModel.find()
@@ -52,3 +33,4 @@ export const getProducto = async (req, res) => {
     console.log(result);
     res.send( result )
 }
+
