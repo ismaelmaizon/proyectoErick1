@@ -12,10 +12,6 @@ function Allproductos () {
     const {productos,  addCart,  
         setProdusctoID} = useContext(MiContexto)
     
-    function agregarAlCart (id) {
-        addCart(id)
-    }
-    
     console.log(productos);
     return (
         
@@ -39,14 +35,9 @@ function Allproductos () {
                             </Stack>
                         </CardBody>
                         <CardFooter p={2} >
-                            <ButtonGroup w='100%' m='auto' display='flex' flexDirection='row' >
-                                <Button variant='solid' colorScheme='blue' color='black' w='75%' fontSize={12} onClick={ async () => agregarAlCart(el) } >
-                                    Comprar
-                                </Button>
-                                <Button variant='solid' colorScheme='blue' color='black' w='75%' fontSize={12} onClick={ async () => setProdusctoID(el._id)} >
-                                    <Link to={'/productDetail'} > Detalles </Link>
-                                </Button>
-                            </ButtonGroup>
+                            <Button variant='solid' colorScheme='blue' color='black' w='75%' fontSize={12} onClick={ async () => setProdusctoID(el._id)} >
+                                <Link to={'/productDetail'} > Detalles </Link>
+                            </Button>
                         </CardFooter>
                     </Card>
                 )

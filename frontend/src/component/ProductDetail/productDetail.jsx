@@ -36,16 +36,13 @@ function ProductDetail() {
     }
 
 
-    const {
-        handleSubmit,
-        register,
-        getValues,
-        formState: { errors, isSubmitting },
-    } = useForm()
-
     //contexto
-    const {productoId, producto, getProduct} = useContext(MiContexto)
+    const {productoId, producto, getProduct,
+        addCart} = useContext(MiContexto)
     
+    function agregarAlCart (id) {
+        addCart(id)
+    }
 
     
     useEffect( ()=> {
@@ -91,9 +88,11 @@ function ProductDetail() {
                             </Button>
                         </div>
                     </div>
-
                     <CardFooter>
-                    <Button variant='solid' colorScheme='blue'>
+                    <Button variant='solid' colorScheme='blue' onClick={ () =>  {
+                        producto.cantidad = cont;
+                        agregarAlCart(producto)
+                    } } >
                         Agregar a carrito
                     </Button>
                     </CardFooter>

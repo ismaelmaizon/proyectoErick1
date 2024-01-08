@@ -1,6 +1,6 @@
 import productsModel from "../db/models/product.model.js";
 
-
+// agregar un producto
 export const agregarProducto = async (req, res) => {
     const producto = req.body
     const img = req.file
@@ -20,13 +20,13 @@ export const agregarProducto = async (req, res) => {
     res.send( { status : 200 /*producto: result*/ } )
 }
 
-
+//obtener todos los productos
 export const getProductos = async (req, res) => {
     let result = await productsModel.find()
     console.log(result);
     res.send( result )
 }
-
+//obtener un producto
 export const getProducto = async (req, res) => {
     console.log(req.params.id);
     let result = await productsModel.findById(req.params.id)

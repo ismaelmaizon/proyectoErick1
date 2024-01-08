@@ -58,6 +58,11 @@ const CartProvider = ({children}) => {
         cart.push(producto)
         setCart(cart)
     }
+    //actualizar al carrito
+    const upDateCart = async ( cart2 ) => {
+        setCart(cart2)
+        console.log(cart);
+    }
     //eliminar producto del carrito
     const deletProductCart = async ( producto) => {
         let cart2 = []
@@ -71,6 +76,7 @@ const CartProvider = ({children}) => {
 
     useEffect(() => {
        getProducts()
+       console.log(cart);
     }, []);
     
 
@@ -79,7 +85,7 @@ const CartProvider = ({children}) => {
         <MiContexto.Provider value={{
         productos, 
         productoId, setProdusctoID, getProduct, producto,
-        cart, setCart, addCart, deletProductCart}} >
+        cart, setCart, addCart, upDateCart, deletProductCart}} >
             {children}
         </MiContexto.Provider>
     )
