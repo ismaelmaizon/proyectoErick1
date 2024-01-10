@@ -11,6 +11,7 @@ import multer from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 
 import __dirname from './src/utils.js';
+import {encriptarPass, validarPass} from './src/utils.js'
 
 const app = express()
 
@@ -55,6 +56,20 @@ app.use(multer({ storage: storage2 }).single('cv'))
 
 //Routes
 app.use('/api', router)
+
+const pass = 'isma1234'
+async function obtenerHash(password) {
+  try {
+    let result = await encriptarPass(password);
+    console.log('promesa: '+result);
+  } catch (error) {
+    console.error('Error:', error);
+    return error
+  }
+}
+
+obtenerHash(pass);
+
 
 app.listen(8080, ()=> {
     console.log(port);

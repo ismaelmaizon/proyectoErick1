@@ -92,7 +92,6 @@ function Cart () {
                     concretar compra
                 </Button>
             </div>
-            
         </div>)
 
 

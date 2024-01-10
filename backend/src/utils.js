@@ -1,5 +1,7 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
+import bcrypt from 'bcrypt';
+
 
 
 /*
@@ -16,6 +18,37 @@ uso puede requerir algunos ajustes en la forma en que construyes rutas.
  
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename);
+
+
+export const encriptarPass = async (password) => {
+    // Generar el hash de la contraseña
+    try {
+        const hash = await bcrypt.hash(password, 10);
+        // Aquí guardamos el hash en una variable
+        return hash;
+      } catch (error) {
+        console.error('Error al generar el hash:', error);
+        throw error;
+      }
+}
+
+export const validarPass = (hash) => {
+    // Verificar si una contraseña ingresada coincide con el hash almacenado
+    bcrypt.compare('otracontraseña', hash, (err, result) => {
+        if (err) {
+        console.error('Error al comparar contraseñas:', err);
+        return;
+        }
+        // `result` será `true` si la contraseña coincide con el hash
+        console.log('Coincide la contraseña:', result); // Resultado: false
+    });
+}
+
+
+
+
+//
+
 
 
 export default __dirname;
