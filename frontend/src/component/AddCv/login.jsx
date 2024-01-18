@@ -9,11 +9,11 @@ import {
   Button,
   Select,
 } from '@chakra-ui/react'
-import './addCv.css'
+import './login.css'
 
 
 
-function AddCv() {
+function Login() {
     const {
         handleSubmit,
         register,
@@ -37,21 +37,22 @@ function AddCv() {
             <h1 className="formulario_title">AGREGAR CV</h1>
             <form onSubmit={handleSubmit(onSubmit)} className='formulario' >
                 <FormControl isInvalid={errors.name}  >
-                    <FormLabel htmlFor='name' mt={5} >Nombre Producto</FormLabel>
+                    <FormLabel htmlFor='email' mt={5} >Nombre Producto</FormLabel>
                     <Input
-                    id='name'
+                    type="text"
+                    name="email"
                     placeholder='ingrese nombre del producto'
-                    {...register('name', {
+                    {...register('email', {
                         required: 'This is required',
                         minLength: { value: 4, message: 'Minimum length should be 4' },
                     })}
                     />
-                    <FormLabel htmlFor='cv' mt={5} >CV</FormLabel>
+                    <FormLabel htmlFor='password' mt={5} >password</FormLabel>
                     <Input
-                    type="file" 
-                    name="cv"
+                    type="text" 
+                    name="password"
                     placeholder='ingrese imagen de producto'
-                    {...register('cv', {
+                    {...register('password', {
                         required: 'This is required',
                         minLength: { value: 4, message: 'Minimum length should be 4' },
                     })}
@@ -60,21 +61,20 @@ function AddCv() {
                     {errors.name && errors.name.message}
                     </FormErrorMessage>
                     <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'  onClick={ async ()=>{
-                        const producto = getValues();
-                        const cv = getValues('cv')[0];
+                        const info = getValues();
                         const formData = new FormData();
-                        formData.append('name', producto.name);
-                        formData.append('cv', cv);
-                        console.log(producto);
-                        console.log(cv);
+                        formData.append('email', info.email);
+                        formData.append('password', info.password);
+                        console.log(info.email);
+                        console.log(info.password);
                         
                         try {
-                            const response = await axios.post('http://localhost:8080/api/auth/agregarCv', formData, {
+                            const response = await axios.post('http://localhost:8080/api/auth/login', formData, {
                               headers: {
                                 'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
                               },
                             });
-                            console.log('Producto creado:', response.data);
+                            console.log('Login:', response.data);
                           } catch (error) {
                             console.error('Error al crear el producto:', error);
                           }
@@ -89,4 +89,4 @@ function AddCv() {
 
 
 
-export default AddCv
+export default Login
