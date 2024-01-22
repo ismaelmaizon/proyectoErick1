@@ -28,15 +28,25 @@ passport.use( 'local-login', new LocalStrategy( {
     passwordField: 'password',
     passReqToCallback: true
 }, async (req, email, password, done) => {
-    const prueba = req.body
-    console.log('prueba: ');
-    console.log(prueba);
-    console.log(email);
     // en este caso estamos estamos tratando de validar un login por ende se va a llamar al modelUser
     // para poder validar la existencia del email el cual en nuestra DB figura como Unico
-    const result = await userModel.find({'email': email })
-    console.log(result);
-    done(null, result)
+    try{
+        const result = await userModel.findOne({'email': email })
+        console.log(result);
+        console.log(result.password);
+        console.log(password);
+        if(!result){
+            console.log('usuario no existe');
+            return done(null, false)
+        }
+        if(result.password != password){
+            return done('invalid password', null)
+        }
+        console.log(result);
+        return done(null, result)
+    }catch(err) { 
+        done(console.error(err))
+    }
 } ) )
 
 

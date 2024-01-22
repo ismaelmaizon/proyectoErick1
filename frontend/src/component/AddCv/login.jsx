@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { useForm } from 'react-hook-form'
 import {
@@ -6,14 +6,16 @@ import {
   FormLabel,
   FormControl,
   Input,
-  Button,
-  Select,
+  Button
 } from '@chakra-ui/react'
+import { Link, useNavigate} from "react-router-dom";
 import './login.css'
 
 
 
 function Login() {
+    
+    const router = useNavigate()
     const {
         handleSubmit,
         register,
@@ -59,28 +61,37 @@ function Login() {
                     />
                     <FormErrorMessage>
                     {errors.name && errors.name.message}
-                    </FormErrorMessage>
-                    <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'  onClick={ async ()=>{
-                        const info = getValues();
-                        const formData = new FormData();
-                        formData.append('email', info.email);
-                        formData.append('password', info.password);
-                        console.log(info.email);
-                        console.log(info.password);
-                        
-                        try {
-                            const response = await axios.post('http://localhost:8080/api/auth/login', formData, {
-                              headers: {
-                                'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
-                              },
-                            });
-                            console.log('Login:', response.data);
-                          } catch (error) {
-                            console.error('Error al crear el producto:', error);
-                          }
-                    } } >
-                        crear
-                    </Button>
+                    </FormErrorMessage>                    
+                        <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'  onClick={ async ()=>{
+                                const info = getValues();
+                                const formData = new FormData();
+                                formData.append('email', info.email);
+                                formData.append('password', info.password);
+                                console.log(info.email);
+                                console.log(info.password);
+                                
+                                await axios.post('http://localhost:8080/api/auth/login', formData)
+                                    .then((response) => {
+                                        console.log(response);
+                                        const statusCode = response.status
+                                        // Aquí puedes manejar diferentes estados según el código de estado
+                                        if (statusCode === 200) {
+                                            // Éxito
+                                            router('/')
+                                            console.log('Inicio de sesión exitoso');
+                                        } else if (statusCode === 500) {
+                                            // No autorizado
+                                            console.log('Credenciales incorrectas');
+                                        } else {
+                                            // Otro estado
+                                            console.log('Error desconocido');
+                                        }
+                                    })
+                       
+                            } }
+                            >
+                                iniciar
+                        </Button>
                 </FormControl>
             </form>
         </div>

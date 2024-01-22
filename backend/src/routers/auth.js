@@ -8,15 +8,17 @@ const router = express.Router()
 
 // rutas productos
 router.post('/agregarProducto', agregarProducto)
-router.post('/login', passport.authenticate('local-login', {
-    //esta es la configuracion dependiendo de como resulto el login (te redirecciona a...)
-    successRedirect: '/',  // caso exitoso
-    failureRedirect: '/register', // caso no exitoso
-    passReqToCallback: true
-}))
 router.post('/register', register)
 router.get('/getProductos', getProductos)
 router.get('/getProducto/:id', getProducto)
+router.post('/login', passport.authenticate('local-login', {
+/*
+    //esta es la configuracion dependiendo de como resulto el login (te redirecciona a...)
+    successRedirect: 'http://localhost:5173/',  // caso exitoso
+    failureRedirect: 'http://localhost:5173/register', // caso no exitoso
+    passReqToCallback: true,*/
+    session: false
+}), login)
 
 
 //rutas carrito
