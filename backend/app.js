@@ -15,6 +15,8 @@ import __dirname from './src/utils.js';
 // avisamos a nuestro archivo js que vamos a usar esta estrategia de passport, pero tambien es importante usar passport como meadleware
 import './src/passport/passport-config.js'
 import passport from 'passport';
+// este modulo permite enviarnos mensajes entre multiples paginas en node.js
+import flash from 'connect-flash'
 
 const app = express()
 
@@ -38,10 +40,17 @@ app.use(session({ // configuramos sus elementos por seguridad, pero es necesario
   resave: false,
   saveUninitialized: false
   })) // esta es necesaria colocarla antes de passport.initialize o antes de cualquier estrategia de passport que estemos usando
+app.use(flash()) // debemos usar flash como meaddleware y debe estar antes de passport y despues de sessiones (dado que flash hace uso de las sesiones)
 app.use(passport.initialize())// de esta manera inicializamos passport
 //recordemos que passport almacena en una session la informacion del usuario por ende debemos usar el siguiente meadleware
 app.use(passport.session())
 
+//
+app.use((req, res, next)=>{
+  // almaceno una variable que va a ser accesible desde toda mi aplicacion (app.locals.NOMBREdeVARIABLE)
+  app.locals.loginMessage = req.flash('loginMessage');
+  next();
+})
 
 console.log('ruta ' + __dirname);
 
@@ -73,5 +82,6 @@ app.use('/api', router)
 
 app.listen(8080, ()=> {
     console.log(port);
+    console.log(app.locals.loginMessage);
     console.log('escuchando...');
 })

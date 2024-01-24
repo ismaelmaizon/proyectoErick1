@@ -9,7 +9,7 @@ import { ListItem, UnorderedList } from '@chakra-ui/react'
 import CartProvider from './component/context/contex'
 import Cart from './component/Cart/cart'
 import ProductDetail from './component/ProductDetail/productDetail'
-import Login from './component/AddCv/login'
+import Login from './component/Login/login'
 import RegisterUser from './component/RegisterUser/registerUser'
 
 
@@ -24,12 +24,12 @@ function App() {
         </div>
         <div className='container_2'>
           <Routes>
-            <Route element={<Inicio/>} path='/' ></Route>
+            <Route element={<Login/>} path='/' ></Route>
+            <Route element={<Inicio/>} path='/myhome' ></Route>
             <Route element={<AddProducto/>} path='/addproducto' ></Route>
             <Route element={<ProductDetail/>} path='/productDetail' ></Route>
             <Route element={<Cart/>} path='/Cart' ></Route>
             
-            <Route element={<Login/>} path='/login/*' ></Route>
             <Route element={<RegisterUser/>} path='/register' ></Route>
             <Route element={<Downloadcv/>} path='/downloadcv' ></Route>
           </Routes>

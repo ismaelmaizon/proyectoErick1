@@ -77,7 +77,7 @@ function Login() {
                                         // Aquí puedes manejar diferentes estados según el código de estado
                                         if (statusCode === 200) {
                                             // Éxito
-                                            router('/')
+                                            router('/myhome')
                                             console.log('Inicio de sesión exitoso');
                                         } else if (statusCode === 500) {
                                             // No autorizado

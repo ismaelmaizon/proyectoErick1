@@ -37,13 +37,14 @@ passport.use( 'local-login', new LocalStrategy( {
         console.log(password);
         if(!result){
             console.log('usuario no existe');
-            return done(null, false)
+            return done(null, false, req.flash('loginMessage','el usuario no existe'))
         }
         if(result.password != password){
-            return done('invalid password', null)
+            console.log('invalid password');
+            return done(null, false, req.flash('loginMessage','la password ingresada no es correcta'))
         }
         console.log(result);
-        return done(null, result)
+        return done(null, result, req.flash('loginMessage','inicio exitoso'))
     }catch(err) { 
         done(console.error(err))
     }
