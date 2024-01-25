@@ -1,12 +1,34 @@
 import {Button, Card, CardBody, Heading, Image, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import './inicio.css'
 import { Link } from "react-router-dom";
 
 import Allproductos from "../AllProductos/allproducts";
+import { MiContexto } from "../context/contex";
 
 function Inicio() {
 
+    const { cookie } = useContext(MiContexto)
+
+    console.log('cookie: ');
+    console.log(cookie);
+    let user = {
+        user : cookie.data.email,
+        password: cookie.data.password,
+        role: cookie.data.role
+    }
+
+    const guardarCookieEnNavegador = () => {
+        // Configura la cookie con un nombre y el valor de la constante cookie
+        document.cookie = `miCookie=${user.role}`;
+    };
+
+    useEffect(()=>{
+        console.log('data:');
+        console.log(cookie.data);
+        console.log(cookie.data.email);
+        guardarCookieEnNavegador()
+    } , [] )
 
     return (
     

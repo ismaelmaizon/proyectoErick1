@@ -10,11 +10,16 @@ import {
 } from '@chakra-ui/react'
 import { Link, useNavigate} from "react-router-dom";
 import './login.css'
+import { MiContexto } from "../context/contex";
 
 
 
 function Login() {
-    
+
+    //contexto session
+    const [session, setSession] = useState('')
+    const {cookie, setCookie} = useContext(MiContexto)
+
     const router = useNavigate()
     const {
         handleSubmit,
@@ -61,7 +66,8 @@ function Login() {
                     />
                     <FormErrorMessage>
                     {errors.name && errors.name.message}
-                    </FormErrorMessage>                    
+                    </FormErrorMessage>  
+                    <h2> {session} </h2>                      
                         <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'  onClick={ async ()=>{
                                 const info = getValues();
                                 const formData = new FormData();
@@ -69,29 +75,35 @@ function Login() {
                                 formData.append('password', info.password);
                                 console.log(info.email);
                                 console.log(info.password);
-                                
-                                await axios.post('http://localhost:8080/api/auth/login', formData)
+
+                                try {
+                                    await axios.post('http://localhost:8080/api/auth/login', formData)
                                     .then((response) => {
+                                        console.log('respuesta: ');
                                         console.log(response);
                                         const statusCode = response.status
                                         // Aquí puedes manejar diferentes estados según el código de estado
                                         if (statusCode === 200) {
                                             // Éxito
+                                            setCookie(response)
                                             router('/myhome')
                                             console.log('Inicio de sesión exitoso');
-                                        } else if (statusCode === 500) {
-                                            // No autorizado
-                                            console.log('Credenciales incorrectas');
                                         } else {
                                             // Otro estado
                                             console.log('Error desconocido');
                                         }
                                     })
-                       
+
+                                }catch(e){
+                                    setSession('session con problemas, verique que el email o su contraseña esten bien ingresados')
+                                    console.log(e);
+                                }
+                                                           
                             } }
                             >
                                 iniciar
                         </Button>
+                        
                 </FormControl>
             </form>
         </div>

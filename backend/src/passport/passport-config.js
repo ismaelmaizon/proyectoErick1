@@ -31,22 +31,21 @@ passport.use( 'local-login', new LocalStrategy( {
     // en este caso estamos estamos tratando de validar un login por ende se va a llamar al modelUser
     // para poder validar la existencia del email el cual en nuestra DB figura como Unico
     try{
-        const result = await userModel.findOne({'email': email })
+        const result = await userModel.findOne({email: email })
+        console.log('result:');
         console.log(result);
-        console.log(result.password);
-        console.log(password);
         if(!result){
             console.log('usuario no existe');
-            return done(null, false, req.flash('loginMessage','el usuario no existe'))
+            return done('mail no encontrado', false) //req.flash('loginMessage','el usuario no existe')
         }
         if(result.password != password){
             console.log('invalid password');
-            return done(null, false, req.flash('loginMessage','la password ingresada no es correcta'))
+            return done('password incorrecta', false) //req.flash('loginMessage','la password ingresada no es correcta')
         }
         console.log(result);
-        return done(null, result, req.flash('loginMessage','inicio exitoso'))
+        return done(null, result) //req.flash('loginMessage','inicio exitoso'))
     }catch(err) { 
-        done(console.error(err))
+        console.error(err)
     }
 } ) )
 

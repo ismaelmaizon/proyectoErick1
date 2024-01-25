@@ -13,6 +13,13 @@ function Allproductos () {
         setProdusctoID} = useContext(MiContexto)
     
     console.log(productos);
+
+    const info = (req, res) => {
+        console.log(req.body);
+    }
+
+    
+
     return (
         
         <div className="allproducts_container" >{

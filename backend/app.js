@@ -6,7 +6,7 @@ import router from './src/routers/index.js'
 import connectDB from './src/db/connect.js'
 import cors from 'cors';
 
-import morgan from 'morgan';
+//import morgan from 'morgan';
 import multer from 'multer';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -32,7 +32,7 @@ connectDB()
 //Middleware
 app.use(express.json())
 app.use(cors()) // al ajecutar cors de esta manera, pemitimos que cualquier dominio pueda hacer consulta a nuestro backend
-app.use(morgan('dev')) // permite ver en consola los pedidos realizados al servidor
+//app.use(morgan('dev')) // permite ver en consola los pedidos realizados al servidor
 app.use(express.urlencoded({extended:false})) //permite poder entender lo que los formularios me estan enviando
 // como estamos trabajando en node.js tambien es necesarion almacenar esa session en este mismo, para lo cual podemos usar
 app.use(session({ // configuramos sus elementos por seguridad, pero es necesario leer la documentacion para entender mejor que es cada elemento
