@@ -51,7 +51,7 @@ function NavBar() {
     return (
         <Grid w='100%' h='70px' templateColumns='repeat(3, 1fr)' gap={2} backgroundColor={'#fafad2'}>
             <div className="container_select">
-                <Link className="container_select_box" to='/'>
+                <Link className="container_select_box" to='/myhome'>
                     <h1>AtelierBodereau</h1>
                 </Link>
             </div>
@@ -78,9 +78,11 @@ function NavBar() {
             </div>
             <div className="container_select">
                 <Stack direction='row' spacing={4} align='center' className="container_select_box">
-                    <Button backgroundColor={'#ffe4b5'} variant='solid'>
-                        Inicio
-                    </Button>
+                    <Link to='/myhome' >
+                        <Button backgroundColor={'#ffe4b5'} variant='solid'>
+                            Inicio
+                        </Button>
+                    </Link>
                     <Menu>
                         <MenuButton as={Button} backgroundColor={'#ffe4b5'} rightIcon={<ChevronDownIcon />}>
                             Categorias

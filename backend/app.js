@@ -1,5 +1,7 @@
 import 'dotenv/config'
 import express from 'express'
+// manejo de cookies
+import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import path from 'path';
 import router from './src/routers/index.js'
@@ -18,8 +20,19 @@ import passport from 'passport';
 // este modulo permite enviarnos mensajes entre multiples paginas en node.js
 import flash from 'connect-flash'
 
+
+
+
 const app = express()
 
+const corsOptions = {
+  //To allow requests from client
+  origin: [
+    "http://localhost:5173"
+  ],
+  credentials: true,
+  exposedHeaders: ["set-cookie"],
+};
 
 //Settings 
 const port = process.env.PORT
@@ -31,14 +44,15 @@ app.use('/static', express.static('src/cv'));
 connectDB()
 //Middleware
 app.use(express.json())
-app.use(cors()) // al ajecutar cors de esta manera, pemitimos que cualquier dominio pueda hacer consulta a nuestro backend
+app.use(cookieParser())
+app.use(cors(corsOptions)) // al ajecutar cors de esta manera, pemitimos que cualquier dominio pueda hacer consulta a nuestro backend
 //app.use(morgan('dev')) // permite ver en consola los pedidos realizados al servidor
 app.use(express.urlencoded({extended:false})) //permite poder entender lo que los formularios me estan enviando
 // como estamos trabajando en node.js tambien es necesarion almacenar esa session en este mismo, para lo cual podemos usar
 app.use(session({ // configuramos sus elementos por seguridad, pero es necesario leer la documentacion para entender mejor que es cada elemento
   secret: 'mysecretsession',
-  resave: false,
-  saveUninitialized: false
+  resave: true,
+  saveUninitialized: true
   })) // esta es necesaria colocarla antes de passport.initialize o antes de cualquier estrategia de passport que estemos usando
 app.use(flash()) // debemos usar flash como meaddleware y debe estar antes de passport y despues de sessiones (dado que flash hace uso de las sesiones)
 app.use(passport.initialize())// de esta manera inicializamos passport
@@ -75,6 +89,7 @@ const storage2 = multer.diskStorage({
 
 app.use(multer({ storage: storage2 }).single('cv'))
 */
+
 
 //Routes
 app.use('/api', router)

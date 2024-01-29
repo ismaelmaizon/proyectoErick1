@@ -32,17 +32,13 @@ export const encriptarPass = async (password) => {
       }
 }
 
-export const validarPass = (hash) => {
+export const validarPass = async (password, hash) => {
     // Verificar si una contraseña ingresada coincide con el hash almacenado
-    bcrypt.compare('otracontraseña', hash, (err, result) => {
-        if (err) {
-        console.error('Error al comparar contraseñas:', err);
-        return;
-        }
+    const result =  await bcrypt.compare(password, hash)
         // `result` será `true` si la contraseña coincide con el hash
-        console.log('Coincide la contraseña:', result); // Resultado: false
-    });
-}
+    console.log('Coincide la contraseña:', result); // Resultado: false
+    return result
+    };
 
 
 

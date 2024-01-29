@@ -1,6 +1,7 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
 import userModel from "../db/models/users.model.js";
+import { validarPass } from "../utils.js";
 
 const LocalStrategy = Strategy
 
@@ -38,12 +39,17 @@ passport.use( 'local-login', new LocalStrategy( {
             console.log('usuario no existe');
             return done('mail no encontrado', false) //req.flash('loginMessage','el usuario no existe')
         }
-        if(result.password != password){
+        const compaPass = await validarPass(password, result.password)
+        console.log(compaPass);
+        if(compaPass){
+            console.log('contraseña iguales');
+            console.log(result);
+            return done(null, result) //req.flash('loginMessage','inicio exitoso'))
+        }else{
             console.log('invalid password');
             return done('password incorrecta', false) //req.flash('loginMessage','la password ingresada no es correcta')
         }
-        console.log(result);
-        return done(null, result) //req.flash('loginMessage','inicio exitoso'))
+        
     }catch(err) { 
         console.error(err)
     }

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import Allproductos from "../AllProductos/allproducts";
 import { MiContexto } from "../context/contex";
+import axios from "axios";
 
 function Inicio() {
 
@@ -18,16 +19,30 @@ function Inicio() {
         role: cookie.data.role
     }
 
+    
     const guardarCookieEnNavegador = () => {
         // Configura la cookie con un nombre y el valor de la constante cookie
-        document.cookie = `miCookie=${user.role}`;
+        //document.cookie = `miCookie=${user.role}`;
+    };
+    const getcookies = async (req, res) => {
+        try {
+            const response = await axios.get('http://localhost:8080/api/auth/setCookie', {withCredentials: true});
+            
+            // Obtener las cookies del encabezado Set-Cookie
+            const cookies = response.headers;
+            //document.cookie = `miCookie=${cookies}`
+            console.log('Cookies recibidas:', cookies);
+        } catch (error) {
+            console.error('Error al obtener cookies:', error.message);
+        }
     };
 
     useEffect(()=>{
         console.log('data:');
         console.log(cookie.data);
         console.log(cookie.data.email);
-        guardarCookieEnNavegador()
+        //guardarCookieEnNavegador()
+        //getcookies()
     } , [] )
 
     return (

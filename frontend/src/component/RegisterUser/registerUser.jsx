@@ -106,7 +106,7 @@ function RegisterUser() {
                                 'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
                               },
                             });
-                            console.log('Login:', response.data);
+                            console.log('register:', response.data);
                           } catch (error) {
                             console.error('Error al crear el producto:', error);
                           }
