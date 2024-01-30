@@ -44,7 +44,6 @@ app.use('/static', express.static('src/cv'));
 connectDB()
 //Middleware
 app.use(express.json())
-app.use(cookieParser())
 app.use(cors(corsOptions)) // al ajecutar cors de esta manera, pemitimos que cualquier dominio pueda hacer consulta a nuestro backend
 //app.use(morgan('dev')) // permite ver en consola los pedidos realizados al servidor
 app.use(express.urlencoded({extended:false})) //permite poder entender lo que los formularios me estan enviando
@@ -53,18 +52,20 @@ app.use(session({ // configuramos sus elementos por seguridad, pero es necesario
   secret: 'mysecretsession',
   resave: true,
   saveUninitialized: true
-  })) // esta es necesaria colocarla antes de passport.initialize o antes de cualquier estrategia de passport que estemos usando
+})) // esta es necesaria colocarla antes de passport.initialize o antes de cualquier estrategia de passport que estemos usando
 app.use(flash()) // debemos usar flash como meaddleware y debe estar antes de passport y despues de sessiones (dado que flash hace uso de las sesiones)
+app.use(cookieParser())
 app.use(passport.initialize())// de esta manera inicializamos passport
 //recordemos que passport almacena en una session la informacion del usuario por ende debemos usar el siguiente meadleware
 app.use(passport.session())
 
 //
-app.use((req, res, next)=>{
+app.use( (req, res, next)=>{
   // almaceno una variable que va a ser accesible desde toda mi aplicacion (app.locals.NOMBREdeVARIABLE)
-  app.locals.loginMessage = req.flash('loginMessage');
+  app.locals.cookies = req.flash('cookies');
   next();
 })
+
 
 console.log('ruta ' + __dirname);
 
@@ -97,6 +98,6 @@ app.use('/api', router)
 
 app.listen(8080, ()=> {
     console.log(port);
-    console.log(app.locals.loginMessage);
+    console.log(app.locals.cookies);
     console.log('escuchando...');
 })

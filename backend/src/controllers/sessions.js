@@ -1,6 +1,8 @@
+import express from 'express'
 import userModel from "../db/models/users.model.js";
 import { encriptarPass } from "../utils.js";
 
+const app = express()
 
 export const register = async (req, res) => {
     const pass = await encriptarPass(req.body.password)
@@ -17,9 +19,11 @@ export const register = async (req, res) => {
     res.send({status: 200} )
 }
 
+
+
 export const login = async (req, res) => {
     
-    const estado = req.flash('loginMessage');
+    
     // Acceder a la información proporcionada por Passport
     const error = req.authInfo;
     const user = req.user;
@@ -28,7 +32,6 @@ export const login = async (req, res) => {
     console.log('Error:', error);
     console.log('User:', user);
     console.log('Info:', info);
-    console.log('estado:', estado);
     
     const us = await userModel.findOne({ email: user.email, password: user.password });
     console.log(user)
@@ -41,11 +44,11 @@ export const login = async (req, res) => {
             age: us.age,
             role: us.role,
         };
-        let token = req.session.user.name
+        const token = req.session.user.email
+        console.log(token);
         res.header('Content-Type', 'application/json');
-        res.cookie('CookiePrueba', token, { maxAge: 10000, httpOnly: true});
-        res.status(200).json({ message: 'Cookie establecida' });
-        res.send(us)
+        res.cookie('CookiePrueba', token, { maxAge: 10000, httpOnly: true });
+        res.status(200).json(us);
     }
 }
 

@@ -1,8 +1,11 @@
 import express  from "express";
 import { agregarProducto, getProductos, getProducto } from "../controllers/crudProductos.js";
 import { createCart } from "../controllers/crudCarts.js";
-import { login, register } from "../controllers/sessions.js";
+import {login, register } from "../controllers/sessions.js";
 import passport from "passport";
+
+const app = express()
+
 
 const router = express.Router()
 
@@ -20,13 +23,7 @@ router.post('/login', passport.authenticate('local-login', {
 //login)
 router.get('/getProductos', getProductos)
 router.get('/getProducto/:id', getProducto)
-//cookies
-//seteando cookies
-router.get('/setCookie', (req, res) => {
-    res.header('Content-Type', 'application/json');
-    res.cookie('CookiePrueba', 'ismaMaizon', { maxAge: 10000, httpOnly: true});
-    res.status(200).json({ message: 'Cookie establecida' });
-} )
+
 //obteniendo cookies
 router.get('/getCookie', (req, res) => {
     

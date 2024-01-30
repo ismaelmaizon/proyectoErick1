@@ -77,22 +77,22 @@ function Login() {
                                 console.log(info.password);
 
                                 try {
-                                    await axios.post('http://localhost:8080/api/auth/login', formData)
-                                    .then((response) => {
-                                        console.log('respuesta: ');
-                                        console.log(response);
-                                        const statusCode = response.status
-                                        // Aquí puedes manejar diferentes estados según el código de estado
-                                        if (statusCode === 200) {
-                                            // Éxito
-                                            setCookie(response)
-                                            router('/myhome')
-                                            console.log('Inicio de sesión exitoso');
-                                        } else {
-                                            // Otro estado
-                                            console.log('Error desconocido');
-                                        }
-                                    })
+                                    await axios.post('http://localhost:8080/api/auth/login', formData, {withCredentials: true})
+                                        .then((response) => {
+                                            console.log('respuesta: ');
+                                            console.log(response);
+                                            const statusCode = response.status
+                                            // Aquí puedes manejar diferentes estados según el código de estado
+                                            if (statusCode === 200) {
+                                                // Éxito
+                                                setCookie(response)
+                                                router('/myhome')
+                                                console.log('Inicio de sesión exitoso');
+                                            } else {
+                                                // Otro estado
+                                                console.log('Error desconocido');
+                                            }
+                                        })
 
                                 }catch(e){
                                     setSession('session con problemas, verique que el email o su contraseña esten bien ingresados')
