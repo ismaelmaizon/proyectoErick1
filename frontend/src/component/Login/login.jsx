@@ -31,7 +31,7 @@ function Login() {
     function onSubmit(values) {
         return new Promise((resolve) => {
         setTimeout(() => {
-            alert(JSON.stringify(values, null, 2))
+            //alert(JSON.stringify(values, null, 2))
             resolve()
         }, 3000)
         })

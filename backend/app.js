@@ -20,6 +20,8 @@ import passport from 'passport';
 // este modulo permite enviarnos mensajes entre multiples paginas en node.js
 import flash from 'connect-flash'
 
+import MongoStore from 'connect-mongo';
+
 
 
 
@@ -48,13 +50,18 @@ app.use(cors(corsOptions)) // al ajecutar cors de esta manera, pemitimos que cua
 //app.use(morgan('dev')) // permite ver en consola los pedidos realizados al servidor
 app.use(express.urlencoded({extended:false})) //permite poder entender lo que los formularios me estan enviando
 // como estamos trabajando en node.js tambien es necesarion almacenar esa session en este mismo, para lo cual podemos usar
+app.use(cookieParser('mysecretsession'))
 app.use(session({ // configuramos sus elementos por seguridad, pero es necesario leer la documentacion para entender mejor que es cada elemento
+  store:MongoStore.create({
+      mongoUrl: 'mongodb+srv://ismaelmaizon1234:i35lPBag8MKqWaiw@cluster0.jy2xumj.mongodb.net/?retryWrites=true&w=majority',
+      //mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
+      ttl: 1500,
+  }),
   secret: 'mysecretsession',
-  resave: true,
-  saveUninitialized: true
+  //resave: true,
+  //saveUninitialized: true
 })) // esta es necesaria colocarla antes de passport.initialize o antes de cualquier estrategia de passport que estemos usando
 app.use(flash()) // debemos usar flash como meaddleware y debe estar antes de passport y despues de sessiones (dado que flash hace uso de las sesiones)
-app.use(cookieParser())
 app.use(passport.initialize())// de esta manera inicializamos passport
 //recordemos que passport almacena en una session la informacion del usuario por ende debemos usar el siguiente meadleware
 app.use(passport.session())
