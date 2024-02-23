@@ -20,7 +20,7 @@ export const MiContexto = createContext([])
 const CartProvider = ({children}) => {
 
 
-    const [ cookie, setCookie ] = useState({})
+    const [ user, setUser ] = useState({})
 
     
     //contexto productos
@@ -87,7 +87,7 @@ const CartProvider = ({children}) => {
     return (
         // aca llamamos al hoock useMiContexto
         <MiContexto.Provider value={{
-        cookie, setCookie,
+        user, setUser,
         productos, 
         productoId, setProdusctoID, getProduct, producto,
         cart, setCart, addCart, upDateCart, deletProductCart}} >

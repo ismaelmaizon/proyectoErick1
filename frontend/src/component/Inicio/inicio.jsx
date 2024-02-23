@@ -9,16 +9,10 @@ import axios from "axios";
 
 function Inicio() {
 
-    const { cookie } = useContext(MiContexto)
+    const { user } = useContext(MiContexto)
 
-    console.log('cookie: ');
-    console.log(cookie);
-    let user = {
-        user : cookie.data.email,
-        password: cookie.data.password,
-        role: cookie.data.role
-    }
-
+    console.log('user: ');
+    console.log(user);
     
     const guardarCookieEnNavegador = () => {
         // Configura la cookie con un nombre y el valor de la constante cookie
@@ -39,8 +33,8 @@ function Inicio() {
 
     useEffect(()=>{
         console.log('data:');
-        console.log(cookie.data);
-        console.log(cookie.data.email);
+        console.log(user);
+        console.log(user.email);
         //guardarCookieEnNavegador()
         //getcookies()
     } , [] )
@@ -161,6 +155,7 @@ function Inicio() {
                 </TabPanels>
                 
             </Tabs>
+            
             <Button display={"flex"} m={"auto"} p={25} backgroundColor={'#ffe4b5'} >
                     <Link to={'/addproducto'} >Agregar nuevo producto</Link>
             </Button>

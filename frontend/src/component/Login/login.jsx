@@ -18,7 +18,7 @@ function Login() {
 
     //contexto session
     const [session, setSession] = useState('')
-    const {cookie, setCookie} = useContext(MiContexto)
+    const {user, setUser} = useContext(MiContexto)
 
     const router = useNavigate()
     const {
@@ -85,7 +85,7 @@ function Login() {
                                             // Aquí puedes manejar diferentes estados según el código de estado
                                             if (statusCode === 200) {
                                                 // Éxito
-                                                setCookie(response)
+                                                setUser(response.data)
                                                 router('/myhome')
                                                 console.log('Inicio de sesión exitoso');
                                             } else {
