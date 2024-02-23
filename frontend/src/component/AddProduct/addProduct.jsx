@@ -119,7 +119,7 @@ function AddProducto() {
                         formData.append('tipo', producto.tipo);
                         formData.append('image', producto.image[0]);
                         try {
-                            const response = await axios.post('http://localhost:8080/api/auth/agregarProducto', formData, {
+                            const response = await axios.post('http://localhost:8080/api/auth/agregarProducto', formData,{withCredentials: true}, {
                               headers: {
                                 'Content-Type': 'multipart/form-data', // Set the content type to multipart/form-data
                               },

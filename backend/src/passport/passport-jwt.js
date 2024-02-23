@@ -1,24 +1,37 @@
-import { Strategy, ExtractJwt} from 'passport-jwt';
+import passport from "passport";
+import jwt from 'passport-jwt';
 
-const JwtStrategy = Strategy
-const ExtractJwt = ExtractJwt
 
-let opts = {}
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = 'secret';
-opts.issuer = 'accounts.examplesoft.com';
-opts.audience = 'yoursite.net';
 
-passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-    User.findOne({id: jwt_payload.sub}, function(err, user) {
-        if (err) {
-            return done(err, false);
+const JWTStrategy = jwt.Strategy
+const ExtractJWT = jwt.ExtractJwt
+
+
+export const initializePassportJWT = () => {
+    passport.use(
+        'jwt', 
+        new JWTStrategy({
+        jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
+        secretOrKey: 'coderSecret'}, // " 'coderSecret' " FIRMA DEL TOKEN
+    async(jwt_Payload, done) => {
+        console.log('payload:');
+        console.log(jwt_Payload);
+        try{
+            return done(null, jwt_Payload)
+        }catch(e){
+            return done(e)
         }
-        if (user) {
-            return done(null, user);
-        } else {
-            return done(null, false);
-            // or you could create a new account
-        }
-    });
-}));
+    }))
+}
+
+
+const cookieExtractor = (req) => {
+    let token = null;
+    if(req && req.cookies) {
+        console.log(req);
+        token = req.cookies['CookiePrueba']; // " 'coderCookie' " NOMBRE DE LA COOKIE QUE ESTAMOS GUARDANDO
+        console.log('cookie extraida:');
+        console.log(token);
+    }
+    return token;
+}

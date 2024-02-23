@@ -2,6 +2,15 @@ import productsModel from "../db/models/product.model.js";
 
 // agregar un producto
 export const agregarProducto = async (req, res) => {
+
+    // Acceder a la información proporcionada por Passport
+    const error = req.authInfo;
+    const user = req.user;
+    const info = req.authInfo;
+    console.log('Error:', error);
+    console.log('User:', user);
+    console.log('Info:', info);
+
     const producto = req.body
     const img = req.file
     console.log(producto);

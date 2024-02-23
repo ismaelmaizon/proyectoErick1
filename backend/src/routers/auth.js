@@ -1,7 +1,7 @@
 import express  from "express";
 import { agregarProducto, getProductos, getProducto } from "../controllers/crudProductos.js";
 import { createCart } from "../controllers/crudCarts.js";
-import {login, register } from "../controllers/sessions.js";
+import {login, loginJWT, register } from "../controllers/sessions.js";
 import passport from "passport";
 
 const app = express()
@@ -10,8 +10,10 @@ const app = express()
 const router = express.Router()
 
 // rutas productos
-router.post('/agregarProducto', agregarProducto)
+router.post('/agregarProducto',passport.authenticate('jwt', {session: false}), agregarProducto)
 router.post('/register', register)
+
+//login)
 router.post('/login', passport.authenticate('local-login', {
 /*
     //esta es la configuracion dependiendo de como resulto el login (te redirecciona a...)
@@ -20,7 +22,9 @@ router.post('/login', passport.authenticate('local-login', {
     passReqToCallback: true,*/
     session: false
 }), login)
-//login)
+router.post('/loginJWT', passport.authenticate('jwt', {session: false}), loginJWT)
+
+//obtener productos
 router.get('/getProductos', getProductos)
 router.get('/getProducto/:id', getProducto)
 

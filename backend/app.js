@@ -21,6 +21,7 @@ import passport from 'passport';
 import flash from 'connect-flash'
 
 import MongoStore from 'connect-mongo';
+import { initializePassportJWT } from './src/passport/passport-jwt.js';
 
 
 
@@ -62,6 +63,7 @@ app.use(session({ // configuramos sus elementos por seguridad, pero es necesario
   //saveUninitialized: true
 })) // esta es necesaria colocarla antes de passport.initialize o antes de cualquier estrategia de passport que estemos usando
 app.use(flash()) // debemos usar flash como meaddleware y debe estar antes de passport y despues de sessiones (dado que flash hace uso de las sesiones)
+initializePassportJWT()
 app.use(passport.initialize())// de esta manera inicializamos passport
 //recordemos que passport almacena en una session la informacion del usuario por ende debemos usar el siguiente meadleware
 app.use(passport.session())

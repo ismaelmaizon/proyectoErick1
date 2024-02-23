@@ -2,6 +2,7 @@ import express from 'express'
 import userModel from "../db/models/users.model.js";
 import CartModel from '../db/models/cart.model.js';
 import { encriptarPass } from "../utils.js";
+import jwt from 'jsonwebtoken'
 
 const app = express()
 
@@ -65,13 +66,47 @@ export const login = async (req, res) => {
             age: user.age,
             role: user.role,
         };
+        let email = user.email
+        let token = jwt.sign({email}, 'coderSecret', {expiresIn: "24h"})
+        console.log(token);
+        //res.header('Content-Type', 'application/json');
+        res.cookie('CookiePrueba', token, { maxAge: 100000, httpOnly: true});
+        res.status(200).json(user);
+    }
+}
+
+
+//login JWT
+
+export const loginJWT = async (req, res) => {
+    
+    
+    // Acceder a la información proporcionada por Passport
+    const error = req.authInfo;
+    const user = req.user;
+    const info = req.authInfo;
+    console.log('Error:', error);
+    console.log('User:', user);
+    console.log('Info:', info);
+
+    /*
+    if(user == null) {
+        res.send({ message: 'clave o usuario incorrecto'})
+    }else{
+        req.session.user = {
+            name: user.first_name + user.last_name,
+            email: user.email,
+            age: user.age,
+            role: user.role,
+        };
         const token = req.session.user.email
         console.log(token);
         res.header('Content-Type', 'application/json');
         res.cookie('CookiePrueba', token, { maxAge: 100000, httpOnly: true, signed: true });
         res.status(200).json(user);
-    }
+    }*/
 }
+
 
 /*
 export const session = (req, res) => {
