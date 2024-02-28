@@ -13,8 +13,6 @@ function Inicio() {
 
     console.log('user: ');
     console.log(user);
-    console.log(user.length);
-
     
     const guardarCookieEnNavegador = () => {
         // Configura la cookie con un nombre y el valor de la constante cookie
@@ -158,6 +156,9 @@ function Inicio() {
                 
             </Tabs>
             
+            <Button display={"flex"} m={"auto"} p={25} backgroundColor={'#ffe4b5'} >
+                    <Link to={'/addproducto'} >Agregar nuevo producto</Link>
+            </Button>
             <h1>AllProducts</h1>
             <Allproductos/>
         </div>

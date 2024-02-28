@@ -3,7 +3,7 @@ import productsModel from "../db/models/product.model.js";
 // agregar un producto
 export const agregarProducto = async (req, res) => {
 
-    // Acceder a la información proporcionada por Passport
+    // Acceder a la información proporcionada por Passport-local
     const error = req.authInfo;
     const user = req.user;
     const info = req.authInfo;

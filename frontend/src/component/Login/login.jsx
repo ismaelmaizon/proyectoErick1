@@ -86,7 +86,12 @@ function Login() {
                                             if (statusCode === 200) {
                                                 // Éxito
                                                 setUser(response.data)
-                                                router('/myhome')
+                                                console.log(response.data);
+                                                if (response.data.role === 'admin') {
+                                                    router('/admin')
+                                                }else{
+                                                    router('/')
+                                                }
                                                 console.log('Inicio de sesión exitoso');
                                             } else {
                                                 // Otro estado

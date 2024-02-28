@@ -22,7 +22,6 @@ router.post('/login', passport.authenticate('local-login', {
     passReqToCallback: true,*/
     session: false
 }), login)
-router.post('/loginJWT', passport.authenticate('jwt', {session: false}), loginJWT)
 
 //obtener productos
 router.get('/getProductos', getProductos)

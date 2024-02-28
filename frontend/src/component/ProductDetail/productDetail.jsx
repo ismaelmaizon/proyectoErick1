@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
+import Swal from 'sweetalert2';
+import withReactConte from 'sweetalert2-react-content'
 import axios from "axios";
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form';
 import {
   Button,
   Card,
@@ -10,19 +12,25 @@ import {
   Heading,
   Text,
   CardFooter,
-  Grid,
-} from '@chakra-ui/react'
-import './productDetail.css'
+} from '@chakra-ui/react';
+import './productDetail.css';
 import { MiContexto } from "../context/contex";
+import { useNavigate } from "react-router-dom";
 
 
 
 function ProductDetail() {
 
+    const router = useNavigate()
+
+
+    //usuario
+    const { user } = useContext(MiContexto)
+
 
     //constador de productos
     const [cont, setCont] = useState(1)
-
+    
     function sumCont () {
         setCont(cont+1)
     };
@@ -34,14 +42,40 @@ function ProductDetail() {
             setCont(cont-1)
         }
     }
-
-
-    //contexto
-    const {productoId, producto, getProduct,
-        addCart} = useContext(MiContexto)
     
+    
+    //contexto
+    const {productoId, producto, getProduct, addCart} = useContext(MiContexto)
+        
     function agregarAlCart (id) {
         addCart(id)
+    }
+        
+    //sweetAlert2    
+    const alertAgregarCarrito = async () => {
+        await Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "el producto se agrego al carrito",
+            showConfirmButton: false,
+            timer: 1500
+          });
+    }
+
+    let response = {}
+    
+    const verificacionLogin = async (response) => {
+        await Swal.fire({
+            title: "para poder agregar un producto, es necesario Iniciar Sesion",
+            showDenyButton: true,
+            denyButtonText: 'no estoy interesado',
+            showConfirmButton: true,
+            confirmButtonText: "Iniciar Sesion"
+          }).then( (result) => {
+            console.log(result);
+            response = result
+          });
+        return response
     }
 
     
@@ -89,16 +123,32 @@ function ProductDetail() {
                         </div>
                     </div>
                     <CardFooter>
-                    <Button variant='solid' colorScheme='blue' onClick={ () =>  {
-                        producto.cantidad = cont;
-                        agregarAlCart(producto)
+                    <Button variant='solid' colorScheme='blue' onClick={ async () =>  {
+                        if (user.user === 'null'  ){
+                                const res = await verificacionLogin(response)
+                                console.log('redirect:' + res);
+                                console.log(res);
+                                if (res.isConfirmed){
+                                    console.log('confir:');
+                                    console.log(res.isConfirmed);
+                                    router('/login')
+                                } else if (res.isDenied){
+                                    router('/')
+                                }
+                            } else {
+                                alertAgregarCarrito();
+                                console.log('redirect:' + redirect);
+                                producto.cantidad = cont;
+                                agregarAlCart(producto);
+                                //router(`${redirect}`)
+ 
+                            }
                     } } >
                         Agregar a carrito
                     </Button>
                     </CardFooter>
                 </Stack>
             </Card>
-            
         </div>
     )
 }

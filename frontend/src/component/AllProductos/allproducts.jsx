@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { MiContexto } from "../context/contex";
-import { Button, ButtonGroup, Card, CardBody, CardFooter, Divider, Grid, Heading, Image, Stack, Text, grid } from "@chakra-ui/react";
+import { Button, ButtonGroup, Card, CardBody, CardFooter, Divider, Grid, Heading, Image, LinkBox, LinkOverlay, Stack, Text, grid } from "@chakra-ui/react";
 
 import './allproducts.css'
 import { Link } from "react-router-dom";
@@ -26,25 +26,20 @@ function Allproductos () {
             productos.map( (el, index) => {
                 return (
                     <Card key={index} mb={75} backgroundColor={'#fafad2'} >
-                        <CardBody >
-                            <Image
-                            src={`http://localhost:8080/static/${el.url}`}
-                            borderRadius='lg'
-                            />
-                            <Stack mt='6' spacing='3'>
-                            <Heading size='md'>{el.name}</Heading>
-                            <Text>
-                                { el.description }
-                            </Text>
-                            <Text color='blue.600' fontSize='2xl'>
+                        <Button h='80%' onClick={ async () => await setProdusctoID(el._id)} >
+                            <Link to={'/productDetail'}>
+                                <Image
+                                    src={`http://localhost:8080/static/${el.url}`}
+                                    borderRadius='lg'
+                                    />
+                                </Link>
+                        </Button>
+                        
+                        <CardFooter p={2} display={"grid"}  >
+                            <Heading fontSize='20'>{el.name}</Heading>
+                            <Text color='blue.600' fontSize='15'>
                                 ${el.price}
                             </Text>
-                            </Stack>
-                        </CardBody>
-                        <CardFooter p={2} >
-                            <Button variant='solid' colorScheme='blue' color='black' w='75%' fontSize={12} onClick={ async () => setProdusctoID(el._id)} >
-                                <Link to={'/productDetail'} > Detalles </Link>
-                            </Button>
                         </CardFooter>
                     </Card>
                 )

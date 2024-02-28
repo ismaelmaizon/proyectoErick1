@@ -2,6 +2,7 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Inicio from './component/Inicio/inicio'
+import InicioAdmin from './component/Inicio/inicioAdmin'
 import NavBar from './component/NavBar/navBar'
 import AddProducto from './component/AddProduct/addProduct'
 import Downloadcv from './component/DownloadCv/downloadcv'
@@ -24,8 +25,9 @@ function App() {
         </div>
         <div className='container_2'>
           <Routes>
-            <Route element={<Login/>} path='/' ></Route>
-            <Route element={<Inicio/>} path='/myhome' ></Route>
+            <Route element={<Login/>} path='/login' ></Route>
+            <Route element={<Inicio/>} path='/' ></Route>
+            <Route element={<InicioAdmin/>} path='/admin' ></Route>
             <Route element={<AddProducto/>} path='/addproducto' ></Route>
             <Route element={<ProductDetail/>} path='/productDetail' ></Route>
             <Route element={<Cart/>} path='/Cart' ></Route>
