@@ -136,12 +136,10 @@ function ProductDetail() {
                                     router('/')
                                 }
                             } else {
-                                alertAgregarCarrito();
-                                console.log('redirect:' + redirect);
                                 producto.cantidad = cont;
                                 agregarAlCart(producto);
-                                //router(`${redirect}`)
- 
+                                alertAgregarCarrito();
+                                router('/')
                             }
                     } } >
                         Agregar a carrito

@@ -2,6 +2,7 @@ import 'dotenv/config'
 import express from 'express'
 // manejo de cookies
 import cookieParser from 'cookie-parser';
+// manejo de sesiones
 import session from 'express-session';
 import path from 'path';
 import router from './src/routers/index.js'
@@ -17,7 +18,7 @@ import __dirname from './src/utils.js';
 // avisamos a nuestro archivo js que vamos a usar esta estrategia de passport, pero tambien es importante usar passport como meadleware
 import './src/passport/passport-config.js'
 import passport from 'passport';
-// este modulo permite enviarnos mensajes entre multiples paginas en node.js
+// este modulo permite enviarnos mensajes entre multiples paginas en node.js (no lo estaria usando por el momento)
 import flash from 'connect-flash'
 
 import MongoStore from 'connect-mongo';
@@ -54,7 +55,7 @@ app.use(express.urlencoded({extended:false})) //permite poder entender lo que lo
 app.use(cookieParser('mysecretsession'))
 app.use(session({ // configuramos sus elementos por seguridad, pero es necesario leer la documentacion para entender mejor que es cada elemento
   store:MongoStore.create({
-      mongoUrl: 'mongodb+srv://ismaelmaizon1234:i35lPBag8MKqWaiw@cluster0.jy2xumj.mongodb.net/?retryWrites=true&w=majority',
+      mongoUrl:  process.env.MONGODB_URL,//'mongodb+srv://ismaelmaizon1234:i35lPBag8MKqWaiw@cluster0.jy2xumj.mongodb.net/?retryWrites=true&w=majority',
       //mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
       ttl: 1500,
   }),

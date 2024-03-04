@@ -15,7 +15,8 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'carts'
     },
-    last_connection: { type: String, default: fecha }
+    last_connection: { type: String, default: fecha },
+    code: String
 })
 
 const userModel = mongoose.model(collection, UserSchema)
