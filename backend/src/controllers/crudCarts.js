@@ -33,25 +33,25 @@ export const addProductCart = async (req, res) => {
     let ex = true
 
     try{
-    const userResult = await userModel.findOne({ email: user.email })
-    if (userResult.cart._id == cartID){
-            const cart = await cartModel.findOne({ _id: cartID })
-            cart.products.map( (prod) =>{
-                if (prod.id === productID){
-                    ex = false
-                    prod.quiantity += 1
+        const userResult = await userModel.findOne({ email: user.email })
+        if (userResult.cart._id == cartID){
+                const cart = await cartModel.findOne({ _id: cartID })
+                cart.products.map( (prod) =>{
+                    if (prod.id === productID){
+                        ex = false
+                        prod.quiantity += 1
+                    }
+                } )
+                if (ex) {
+                    cart.products.push(productID)
                 }
-            } )
-            if (ex) {
-                cart.products.push(productID)
+                cart.save()
+                console.log('producto agregado');
+                res.send({ok: true, message: 'producto agregado', cart: cart}) 
+            }else{
+                console.log('no coinciden los cart');
+                res.send({ok: false, message: 'no coinciden los cart', cart: null}) 
             }
-            cart.save()
-            console.log('producto agregado');
-            res.send({ok: true, message: 'producto agregado', cart: cart}) 
-        }else{
-            console.log('no coinciden los cart');
-            res.send({ok: false, message: 'no coinciden los cart', cart: null}) 
-        }
     }catch(err){
             console.log(err);
             return ({ ok: false, message: 'problemas al agregar producto al carrito, necesario volver a iniciar sesion', err: err })
