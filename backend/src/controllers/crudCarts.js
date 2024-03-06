@@ -9,7 +9,7 @@ export const createCart = async (req, res) => {
     const result = await cartModel.create(cart)
     res.send({ status: 200, message: result} )
 }
-
+// ver carrito
 export const getCart = async (req, res) => {
     const cartID = req.params.cid
     

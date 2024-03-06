@@ -3,36 +3,57 @@ import userModel from '../db/models/users.model.js';
 import cartModel from '../db/models/cart.model.js';
 import productsModel from '../db/models/product.model.js';
 
-export const formSales = async ( req, res ) =>{
-    const formularioVenta = req.body;
+export const vistaPreviaCart = async ( req, res ) =>{
     const user = req.user;
+    let totalParcial = 0
     let total = 0;
+    let arrayCart = {cart:[], total: total}
+    let prodRef = {}
     try{
         const us = await userModel.findOne({ email: user.email })
         if (us) {
-            console.log(formularioVenta);
-            console.log(us.cart);
+            console.log(us.cart) 
             const cart = await cartModel.findOne({ _id: us.cart })
-            console.log(cart);
-            console.log(cart.products.length);
             const productos = await productsModel.find()
             productos.map((prod) =>{
-                console.log(prod._id);
+                let prodIDString = prod._id.toString();
                 cart.products.map((cart) => {
-                    console.log(cart._id);
-                    if( prod._id === cart._id ){
+                    let cartIDString = cart._id.toString();
+                    if( prodIDString === cartIDString ){
                         console.log('ok');
+                        console.log(prod.price);
+                        console.log(cart.quiantity);
+                        totalParcial += prod.price * cart.quiantity
+                        prodRef = {
+                            _id: prod._id,
+                            name: prod.name,
+                            description: prod.description,
+                            price: prod.price,
+                            stock: prod.stock,
+                            tipo: prod.tipo,
+                            url: prod.url,
+                            quiantity: cart.quiantity,
+                            totalParcial: totalParcial
+                        }
+                        arrayCart.cart.push(prodRef);
                     }
                 })
+                totalParcial = 0
                 
             })
-            
-            formularioVenta.total = total
-            formularioVenta.cart = cart
+            arrayCart.cart.map((prod) =>{
+                console.log(prod.totalParcial);
+                total += prod.totalParcial
+            })
+            console.log(total);
+            arrayCart.total = total
+
         }
-        console.log(formularioVenta);
-        res.send( {ok: true, message: 'succes', formulario: formularioVenta} )
+        res.send({ ok: true, message: 'vista previa', cart: arrayCart })
+        
+
     }catch(err){
         console.log(err);
     }
 }   
+

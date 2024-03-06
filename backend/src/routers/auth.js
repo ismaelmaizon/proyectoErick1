@@ -3,7 +3,7 @@ import { agregarProducto, getProductos, getProducto } from "../controllers/crudP
 import { addProductCart, createCart, getCart } from "../controllers/crudCarts.js";
 import {login, register } from "../controllers/sessions.js";
 import passport from "passport";
-import { formSales } from "../controllers/sales.js";
+import {vistaPreviaCart } from "../controllers/sales.js";
 
 const app = express()
 
@@ -31,7 +31,7 @@ router.get('/carts/:cid',passport.authenticate('jwt', {session: false}), getCart
 //agregar producto al carrito
 router.post('/carts/:cid/product/:pid',passport.authenticate('jwt', {session: false}), addProductCart)
 // concretar venta
-router.post('/carts/:cid',passport.authenticate('jwt', {session: false}), formSales)
+router.post('/carts/:cid',passport.authenticate('jwt', {session: false}), vistaPreviaCart)
 
 
 
