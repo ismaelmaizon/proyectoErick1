@@ -3,7 +3,7 @@ import { agregarProducto, getProductos, getProducto } from "../controllers/crudP
 import { addProductCart, createCart, getCart } from "../controllers/crudCarts.js";
 import {login, register } from "../controllers/sessions.js";
 import passport from "passport";
-import {vistaPreviaCart } from "../controllers/sales.js";
+import {UpdateVistaPrevia, vistaPreviaCart } from "../controllers/dashboard.js";
 
 const app = express()
 
@@ -27,11 +27,13 @@ session: false
 
 //Clientes
 //ver carrito
-router.get('/carts/:cid',passport.authenticate('jwt', {session: false}), getCart)
+router.get('/carts/:cid', passport.authenticate('jwt', {session: false}),getCart)
 //agregar producto al carrito
 router.post('/carts/:cid/product/:pid',passport.authenticate('jwt', {session: false}), addProductCart)
-// concretar venta
-router.post('/carts/:cid',passport.authenticate('jwt', {session: false}), vistaPreviaCart)
+// vista previa
+router.get('/carts',passport.authenticate('jwt', {session: false}), vistaPreviaCart)
+// updateCart
+router.post('/UpDateCarts',passport.authenticate('jwt', {session: false}), UpdateVistaPrevia)
 
 
 

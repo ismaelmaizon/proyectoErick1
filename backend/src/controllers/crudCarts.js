@@ -12,7 +12,8 @@ export const createCart = async (req, res) => {
 // ver carrito
 export const getCart = async (req, res) => {
     const cartID = req.params.cid
-    
+    console.log('parametro: '+cartID);
+    console.log( req.cookies['CookiePrueba']);
     try{
         const cart = await cartModel.findOne({ _id: cartID })
         console.log(cart);

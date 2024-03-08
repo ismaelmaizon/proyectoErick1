@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {Grid, GridItem, Stack, Tab, TabList, Tabs } from '@chakra-ui/react'
 import './navBar.css'
 import { Link, Route } from "react-router-dom";
@@ -29,9 +29,12 @@ import {
   } from '@chakra-ui/react'
 import { redirect } from "react-router-dom";
 import Cart from "../Cart/cart";
+import { MiContexto } from "../context/contex";
 
 
 function NavBar() {
+
+    const { numberCart } = useContext(MiContexto)
 
     const {
         handleSubmit,
@@ -99,6 +102,7 @@ function NavBar() {
                     </Button>
                     <Link to= '/Cart'>
                         <Button backgroundColor={'#ffe4b5'} variant='solid' >
+                            {numberCart}
                             <BsCartCheck />
                         </Button>
                     </Link>

@@ -9,34 +9,19 @@ import axios from "axios";
 
 function Inicio() {
 
-    const { user } = useContext(MiContexto)
+    const { user, getCart, cartID } = useContext(MiContexto)
 
     console.log('user: ');
     console.log(user);
     console.log(user.length);
 
     
-    const guardarCookieEnNavegador = () => {
-        // Configura la cookie con un nombre y el valor de la constante cookie
-        //document.cookie = `miCookie=${user.role}`;
-    };
-    const getcookies = async (req, res) => {
-        try {
-            const response = await axios.get('http://localhost:8080/api/auth/setCookie', {withCredentials: true});
-            
-            // Obtener las cookies del encabezado Set-Cookie
-            const cookies = response.headers;
-            //document.cookie = `miCookie=${cookies}`
-            console.log('Cookies recibidas:', cookies);
-        } catch (error) {
-            console.error('Error al obtener cookies:', error.message);
-        }
-    };
 
     useEffect(()=>{
         console.log('data:');
         console.log(user);
         console.log(user.email);
+        getCart(cartID)
         //guardarCookieEnNavegador()
         //getcookies()
     } , [] )

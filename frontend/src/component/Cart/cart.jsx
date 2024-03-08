@@ -1,5 +1,5 @@
 import { Button, Card, CardBody, CardFooter, Grid, Heading, Image, Stack, Text } from '@chakra-ui/react';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { MiContexto } from '../context/contex';
 import './cart.css'
 import axios from 'axios';
@@ -7,7 +7,7 @@ import axios from 'axios';
 
 function Cart () {
 
-    
+    /*
     const { cart, upDateCart, deletProductCart} = useContext(MiContexto)
     
     let total = 0 
@@ -16,30 +16,38 @@ function Cart () {
         total = total + precioParcial
     }  )
 
-
-    console.log(cart);
-    /*
-    const getProduct = async (id) => {
+    */
+   const [vPrevia, setvPrevia ] = useState([])
+   const [total, setTotal] = useState(0)
+    
+    const getVistaPrevia = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/auth/getProducto/${id}`);
+            const response = await axios.get(`http://localhost:8080/api/auth/carts`,  {withCredentials: true});
             // Manejar la respuesta del servidor y actualizar el estado con los productos obtenidos
-            console.log('Productos:', response.data);
-            return response.data
+            console.log('cart:', response.data);
+            setvPrevia(response.data.cart.cart)
+            setTotal(response.data.cart.total)
         } catch (error) {
             console.error('Error al obtener los productos:', error);
         }
     }
+
+
     
-    */
+    useEffect(()=>{
+        getVistaPrevia()
+        console.log(vPrevia);
+    } , [] )
+    
+    
     
     return (
         <div className='container_carrito'>
             <h2 className='container_carrito_title'>Tu carrito:</h2>
                 <div className='container_carrito_products'>
                 {
-                    cart.map( (el, index) => {
+                    vPrevia.map( (el, index) => {
                         console.log(el);
-                        const totalParcial = parseFloat(el.cantidad) * parseFloat(el.price)
                         return (
                             <Card
                                 key={index} 
@@ -54,8 +62,8 @@ function Cart () {
                                 <Grid templateColumns={'repeat(2, 1fr)'} gap={20} margin={'auto'} w='100%'>
                                     <Heading size='md' m={3} >{el.name}</Heading>
 
-                                    <h2> cantidad: {el.cantidad} </h2>
-                                    <h2> Sub total:  { totalParcial } </h2>
+                                    <h2> cantidad: {el.quiantity} </h2>
+                                    <h2> Sub total:  { el.totalParcial } </h2>
                                     <div className='cart_buttons' >
                                         <Button variant='solid' colorScheme='blue' onClick={ () => deletProductCart(el) } >
                                             delete

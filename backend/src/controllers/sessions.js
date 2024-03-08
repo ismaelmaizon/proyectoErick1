@@ -46,8 +46,6 @@ export const register = async (req, res) => {
 
 
 export const login = async (req, res) => {
-    
-    
     // Acceder a la información proporcionada por Passport-local
     const error = req.authInfo;
     const user = req.user;
@@ -70,8 +68,8 @@ export const login = async (req, res) => {
         let role = user.role
         let token = jwt.sign({email, role}, 'coderSecret', {expiresIn: "24h"})
         console.log(token);
-        //res.header('Content-Type', 'application/json');
-        res.cookie('CookiePrueba', token, { maxAge: 300000, httpOnly: true});
+        res.header('Content-Type', 'application/json');
+        res.cookie('CookiePrueba', token, { maxAge: 600000, httpOnly: true});
         res.status(200).json(user);
     }
 }
