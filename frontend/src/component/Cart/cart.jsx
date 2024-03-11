@@ -7,36 +7,27 @@ import axios from 'axios';
 
 function Cart () {
 
-    /*
-    const { cart, upDateCart, deletProductCart} = useContext(MiContexto)
     
-    let total = 0 
-    cart.map((el) => {
-        const precioParcial = parseFloat(el.cantidad) * parseFloat(el.price)
-        total = total + precioParcial
-    }  )
+    const { dashBoard} = useContext(MiContexto)
 
-    */
-   const [vPrevia, setvPrevia ] = useState([])
-   const [total, setTotal] = useState(0)
-    
-    const getVistaPrevia = async () => {
-        try {
-            const response = await axios.get(`http://localhost:8080/api/auth/carts`,  {withCredentials: true});
-            // Manejar la respuesta del servidor y actualizar el estado con los productos obtenidos
-            console.log('cart:', response.data);
-            setvPrevia(response.data.cart.cart)
-            setTotal(response.data.cart.total)
-        } catch (error) {
-            console.error('Error al obtener los productos:', error);
-        }
+    const [cart, setCart] = useState([])
+
+    //eliminar producto del carrito
+    const deletProductCart = async ( producto) => {
+        let cart2 = []
+        cart.map( (el) => {
+            if (el._id != producto._id) {
+                cart2.push(el)
+            } 
+        })
+        setCart(cart2)
     }
-
-
     
-    useEffect(()=>{
-        getVistaPrevia()
-        console.log(vPrevia);
+    useEffect( ()=>{
+        console.log('dashboarad:');
+        console.log(dashBoard);
+        setCart(dashBoard.cart)
+        console.log(cart);
     } , [] )
     
     
@@ -46,7 +37,7 @@ function Cart () {
             <h2 className='container_carrito_title'>Tu carrito:</h2>
                 <div className='container_carrito_products'>
                 {
-                    vPrevia.map( (el, index) => {
+                    cart.map( (el, index) => {
                         console.log(el);
                         return (
                             <Card
@@ -78,9 +69,10 @@ function Cart () {
                 </div>
             <div>
                 <h1>
-                    Total: {total}
+                    Total: {dashBoard.total}
                 </h1>
                 <Button variant='solid' colorScheme='blue' onClick={async () =>  {
+                    /*
                     upDateCart(cart);
                     const newCart = {
                         name: 'Isma Prueba',
@@ -95,7 +87,7 @@ function Cart () {
                         console.log('Carrito creado:', response.data);
                       } catch (error) {
                         console.error('Error al crear el producto:', error);
-                      }
+                      }*/
                 } } >
                     concretar compra
                 </Button>

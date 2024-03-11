@@ -68,20 +68,68 @@ const CartProvider = ({children}) => {
             console.log(cartID);
             const response = await axios.get(`http://localhost:8080/api/auth/carts/${cartID}`, {withCredentials: true});
             // Manejar la respuesta del servidor y actualizar el estado con los productos obtenidos
-            console.log('cart:', response.data);
+            console.log('cart:', response.data.cart.products);
             console.log('cantidad:', response.data.cart.products.length);
-            //setCart(response.data);
+            setCart(response.data.cart.products);
             setNumberCart(response.data.cart.products.length)
         } catch (error) {
             console.error('Error al obtener el carrito:', error);
         }
     };
 
+
+    //creacion de dashboard
+    const [dashBoard, setDashBoard] = useState({ cart: [], total: 0 })
+
+
+    const ViewDashBoard = ( dashBoard, productos, cart ) => {
+        console.log('ViewDashBoard');
+        let newCart = []
+        let totalParcial= 0
+        let total = 0
+        let prodRef = {}
+
+        productos.map((p) => {
+            let prodIDString = p._id.toString();
+            cart.map((pCart) => {
+                let cartIDString = pCart._id.toString();
+                if(prodIDString === cartIDString){
+                    totalParcial = p.price*pCart.quiantity
+                    prodRef = {
+                        _id: p._id,
+                        name: p.name,
+                        description: p.description,
+                        price: p.price,
+                        stock: p.stock,
+                        tipo: p.tipo,
+                        url: p.url,
+                        quiantity: pCart.quiantity,
+                        totalParcial: totalParcial
+                    }
+                    newCart.push(prodRef)
+                }
+            })
+            totalParcial = 0
+        })
+
+        newCart.map((el) => {
+            total += el.totalParcial
+        } )
+
+        dashBoard = ({ cart: newCart, total: total })
+
+        return dashBoard
+    }
+
+    
+
+
     //agregar al carrito
+    /*
     const addCart = async ( producto) => {
         cart.push(producto)
         setCart(cart)
-    }
+    }*/
     //actualizar al carrito
     const upDateCart = async ( cart2 ) => {
         setCart(cart2)
@@ -90,28 +138,28 @@ const CartProvider = ({children}) => {
     //eliminar producto del carrito
     const deletProductCart = async ( producto) => {
         let cart2 = []
-        cart.map( (el) => {
+        dashBoard.cart.map( (el) => {
             if (el._id != producto._id) {
                 cart2.push(el)
             } 
         })
-        setCart(cart2)
+        setDashBoard(ViewDashBoard(( dashBoard, productos, cart2 )))
     }
 
     useEffect(() => {
        getProducts()
-       console.log(cart);
     }, []);
     
 
     return (
         // aca llamamos al hoock useMiContexto
         <MiContexto.Provider value={{
-        user, setUser,
+        user, setUser, 
+        dashBoard, setDashBoard, ViewDashBoard,
         getCart, cartID, setCartID, numberCart,
         productos, 
         productoId, setProdusctoID, getProduct, producto,
-        cart, setCart, addCart, upDateCart, deletProductCart}} >
+        cart, setCart, upDateCart}} >
             {children}
         </MiContexto.Provider>
     )

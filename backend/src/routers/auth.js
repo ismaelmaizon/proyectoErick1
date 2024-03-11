@@ -30,11 +30,12 @@ session: false
 router.get('/carts/:cid', passport.authenticate('jwt', {session: false}),getCart)
 //agregar producto al carrito
 router.post('/carts/:cid/product/:pid',passport.authenticate('jwt', {session: false}), addProductCart)
-// vista previa
+/*
+// vista previa dashboard
 router.get('/carts',passport.authenticate('jwt', {session: false}), vistaPreviaCart)
 // updateCart
 router.post('/UpDateCarts',passport.authenticate('jwt', {session: false}), UpdateVistaPrevia)
-
+*/
 
 
 // rutas productos

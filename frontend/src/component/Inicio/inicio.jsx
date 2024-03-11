@@ -9,7 +9,7 @@ import axios from "axios";
 
 function Inicio() {
 
-    const { user, getCart, cartID } = useContext(MiContexto)
+    const { user, getCart, cartID, cart } = useContext(MiContexto)
 
     console.log('user: ');
     console.log(user);
@@ -21,9 +21,10 @@ function Inicio() {
         console.log('data:');
         console.log(user);
         console.log(user.email);
-        getCart(cartID)
-        //guardarCookieEnNavegador()
-        //getcookies()
+        console.log('cart:');
+        console.log(cart);
+        getCart(cartID);
+
     } , [] )
 
     return (

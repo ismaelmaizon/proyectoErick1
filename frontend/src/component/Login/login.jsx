@@ -18,7 +18,7 @@ function Login() {
 
     //contexto session
     const [session, setSession] = useState('')
-    const {user, setUser, setCartID} = useContext(MiContexto)
+    const {setUser, setCartID} = useContext(MiContexto)
 
     const router = useNavigate()
     const {
@@ -85,6 +85,7 @@ function Login() {
                                             // Aquí puedes manejar diferentes estados según el código de estado
                                             if (statusCode === 200) {
                                                 // Éxito
+                                                console.log(response.data.cart);
                                                 setCartID(response.data.cart)
                                                 setUser(response.data)
                                                 console.log(response.data);
