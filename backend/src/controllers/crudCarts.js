@@ -28,23 +28,34 @@ export const getCart = async (req, res) => {
 
 // agregar producto al carrito carrito
 export const addProductCart = async (req, res) => {
+    const {num} = req.body
     const user = req.user;
     const cartID = req.params.cid
     const productID = req.params.pid
     let ex = true
+    console.log(num);
+    console.log(user);
+    console.log(cartID);
+    console.log(productID);
 
     try{
         const userResult = await userModel.findOne({ email: user.email })
         if (userResult.cart._id == cartID){
+                let prod = {
+                    _id: '',
+                    quiantity: 1
+                }
                 const cart = await cartModel.findOne({ _id: cartID })
                 cart.products.map( (prod) =>{
                     if (prod.id === productID){
                         ex = false
-                        prod.quiantity += 1
+                        prod.quiantity = num
                     }
                 } )
                 if (ex) {
-                    cart.products.push(productID)
+                    prod._id = productID
+                    prod.quiantity = num
+                    cart.products.push(prod)
                 }
                 cart.save()
                 console.log('producto agregado');
@@ -84,5 +95,5 @@ export const addProductCart = async (req, res) => {
         return ({ ok: false, message: 'problemas al agregar producto al carrito', err: err })
     }
     */
-    
+
 }

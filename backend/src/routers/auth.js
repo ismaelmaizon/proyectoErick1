@@ -29,7 +29,7 @@ session: false
 //ver carrito
 router.get('/carts/:cid', passport.authenticate('jwt', {session: false}),getCart)
 //agregar producto al carrito
-router.post('/carts/:cid/product/:pid',passport.authenticate('jwt', {session: false}), addProductCart)
+router.post('/carts/:cid/product/:pid', passport.authenticate('jwt', {session: false}), addProductCart)
 /*
 // vista previa dashboard
 router.get('/carts',passport.authenticate('jwt', {session: false}), vistaPreviaCart)

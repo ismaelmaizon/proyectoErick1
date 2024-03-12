@@ -45,10 +45,20 @@ function ProductDetail() {
     
     
     //contexto
-    const {productoId, producto, getProduct, addCart} = useContext(MiContexto)
+    const {productoId, producto, getProduct, cartID} = useContext(MiContexto)
         
-    function agregarAlCart (id) {
-        addCart(id)
+    //agregar al carrito
+    
+    const addCart = async ( productoId, cartID, num) => {
+        const formData = new FormData();
+        formData.append('num', num);
+        try {
+            const response = await axios.post(`http://localhost:8080/api/auth/carts/${cartID}/product/${productoId}`,formData, {withCredentials: true});
+            // Manejar la respuesta del servidor y actualizar el estado con los productos obtenidos
+            return response.data
+        } catch (error) {
+            console.error('Error al obtener el carrito:', error);
+        }
     }
         
     //sweetAlert2    
@@ -81,6 +91,8 @@ function ProductDetail() {
     
     useEffect( ()=> {
         getProduct(productoId)
+        console.log('info cart:');
+        console.log(cartID);
     }, [])
     
     //Logs
@@ -136,10 +148,13 @@ function ProductDetail() {
                                     router('/')
                                 }
                             } else {
-                                producto.cantidad = cont;
-                                agregarAlCart(producto);
-                                alertAgregarCarrito();
-                                router('/')
+                                const res = await addCart(productoId, cartID, cont);
+                                console.log(res);
+                                if(res.ok === true){
+                                    alertAgregarCarrito();
+                                    router('/')
+                                }
+                                
                             }
                     } } >
                         Agregar a carrito

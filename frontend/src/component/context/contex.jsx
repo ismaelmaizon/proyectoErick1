@@ -123,28 +123,12 @@ const CartProvider = ({children}) => {
 
     
 
-
-    //agregar al carrito
-    /*
-    const addCart = async ( producto) => {
-        cart.push(producto)
-        setCart(cart)
-    }*/
     //actualizar al carrito
     const upDateCart = async ( cart2 ) => {
         setCart(cart2)
         console.log(cart);
     }
-    //eliminar producto del carrito
-    const deletProductCart = async ( producto) => {
-        let cart2 = []
-        dashBoard.cart.map( (el) => {
-            if (el._id != producto._id) {
-                cart2.push(el)
-            } 
-        })
-        setDashBoard(ViewDashBoard(( dashBoard, productos, cart2 )))
-    }
+    
 
     useEffect(() => {
        getProducts()
