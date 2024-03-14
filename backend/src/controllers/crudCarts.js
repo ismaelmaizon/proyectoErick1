@@ -1,3 +1,4 @@
+import { log } from "console";
 import cartModel from "../db/models/cart.model.js";
 import userModel from "../db/models/users.model.js";
 
@@ -96,4 +97,38 @@ export const addProductCart = async (req, res) => {
     }
     */
 
+}
+
+// eliminar producto del carrito carrito
+export const upDateCart = async (req, res) => {
+    const cartID = req.params.cid
+    const {cartupdate} = req.body
+    const user = req.user;
+    console.log('user Finish: ');
+    console.log(user);
+    
+    try{
+        let c = []
+        let p = {}
+        const cart = await cartModel.findOne({ _id: cartID })
+        console.log(cart);
+        cart.products.map((elc) => {
+            cartupdate.products.map((elup) => {
+                if( elc._id.toString() === elup._id.toString() ){
+                    p.quiantity = elup.quiantity
+                    p._id = elup._id
+                    c.push(p)
+                }
+                p = {}
+            })
+        })
+        cart.products = c
+        console.log(cart);
+        //cart.save()
+        res.send({ok: true, message: 'updateCart', cart: cart})
+        
+    }catch(err){
+        console.log(err);
+        return ({ ok: false, message: 'carrito no existe', err: err })
+    }
 }

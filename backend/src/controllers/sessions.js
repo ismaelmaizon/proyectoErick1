@@ -69,7 +69,7 @@ export const login = async (req, res) => {
         let token = jwt.sign({email, role}, 'coderSecret', {expiresIn: "24h"})
         console.log(token);
         res.header('Content-Type', 'application/json');
-        res.cookie('CookiePrueba', token, { maxAge: 600000, httpOnly: true});
+        res.cookie('CookiePrueba', token, { maxAge: 1200000, httpOnly: true});
         res.status(200).json(user);
     }
 }

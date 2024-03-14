@@ -1,6 +1,6 @@
 import express  from "express";
 import { agregarProducto, getProductos, getProducto } from "../controllers/crudProductos.js";
-import { addProductCart, createCart, getCart } from "../controllers/crudCarts.js";
+import { addProductCart, createCart, getCart, upDateCart } from "../controllers/crudCarts.js";
 import {login, register } from "../controllers/sessions.js";
 import passport from "passport";
 import {UpdateVistaPrevia, vistaPreviaCart } from "../controllers/dashboard.js";
@@ -30,6 +30,10 @@ session: false
 router.get('/carts/:cid', passport.authenticate('jwt', {session: false}),getCart)
 //agregar producto al carrito
 router.post('/carts/:cid/product/:pid', passport.authenticate('jwt', {session: false}), addProductCart)
+//actualizar cart
+router.put('/carts/:cid', passport.authenticate('jwt', {session: false}), upDateCart)
+
+
 /*
 // vista previa dashboard
 router.get('/carts',passport.authenticate('jwt', {session: false}), vistaPreviaCart)
