@@ -28,9 +28,12 @@ import {
     MenuItem,
   } from '@chakra-ui/react'
 import { MiContexto } from "../context/contex";
+import { useNavigate } from "react-router-dom";
 
 
 function NavBar() {
+
+    const router = useNavigate()
 
     const { numberCart, setDashBoard, ViewDashBoard, dashBoard, productos, cart } = useContext(MiContexto)
 
@@ -84,17 +87,6 @@ function NavBar() {
                             login
                         </Button>
                     </Link>
-                    <Menu>
-                        <MenuButton as={Button} backgroundColor={'#ffe4b5'} rightIcon={<ChevronDownIcon />}>
-                            Categorias
-                        </MenuButton>
-                        <MenuList>
-                            <MenuItem fontSize={'15px'} >alfombras</MenuItem>
-                            <MenuItem fontSize={'15px'} >impresion 3D</MenuItem>
-                            <MenuItem fontSize={'15px'} >interior</MenuItem>
-                            <MenuItem fontSize={'15px'} >Aberturas</MenuItem>
-                        </MenuList>
-                    </Menu>
                     <Button backgroundColor={'#ffe4b5'} variant='solid'>
                         Novedades
                     </Button>

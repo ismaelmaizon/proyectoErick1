@@ -63,14 +63,30 @@ export const login = async (req, res) => {
             email: user.email,
             age: user.age,
             role: user.role,
+            role: user.cart
         };
         let email = user.email
         let role = user.role
-        let token = jwt.sign({email, role}, 'coderSecret', {expiresIn: "24h"})
+        let cart = user.cart
+        let name = user.first_name
+        let token = jwt.sign({email, role, cart, name}, 'coderSecret', {expiresIn: "24h"})
         console.log(token);
         res.header('Content-Type', 'application/json');
-        res.cookie('CookiePrueba', token, { maxAge: 1200000, httpOnly: true});
+        res.cookie('CookiePrueba', token, { maxAge: 120000, httpOnly: true});
         res.status(200).json(user);
     }
 }
 
+
+export const getUser = async (req, res) => {
+    // Acceder a la información proporcionada por Passport-local
+    const cookie =  req.cookies
+    const error = req.authInfo;
+    const user = req.user;
+    const info = req.authInfo;
+    console.log('Error:', error);
+    console.log('User:', user);
+    console.log('Info:', info);
+    console.log('cookie:', cookie);
+    res.send(user)
+}

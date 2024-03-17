@@ -19,11 +19,7 @@ export const MiContexto = createContext([])
 
 const CartProvider = ({children}) => {
 
-
-    const [ user, setUser ] = useState({
-        user : 'null'
-    })
-    
+    const [ user, setUser ] = useState('null')
 
 
     

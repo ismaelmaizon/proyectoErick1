@@ -1,10 +1,63 @@
 import sendEmail from '../mailer/mailer.js'
-import userModel from '../db/models/users.model.js';
-import cartModel from '../db/models/cart.model.js';
-import productsModel from '../db/models/product.model.js';
+
+import ventasModel from '../db/models/ventas.model.js';
+
+//mostrar venta segun codigo id
+export const getVenta = async (req, res) => {
+    const id = req.params.id
+    const venta = await ventasModel.findById(id)
+    console.log(venta);
+    res.send({ venta: venta })
+}
+
+
+// registrar venta realizada
+export const registrarVenta = async (req, res) => {
+    const user = req.user
+    const venta = req.body
+    console.log(user);
+    console.log(venta);
+    
+    try{
+        const newVenta = {
+            email: user.email,
+            products: venta.products,
+            total: venta.total
+        } 
+        const response = await ventasModel.create(newVenta)
+        console.log(response);
+        console.log(response._id);
+        if (response) {
+            sendEmail(user.email, 'codigo de venta', `
+            <h1> porfavor no compartir este codigo </h1>
+            <h3> con el mismo podra retirar su compra: </h3>
+            <h2> ${response._id} </h2>
+            `)
+        }
+        res.send({ok: true, message: 'ok', venta: response })
+
+    }catch(err){
+        console.log(err);
+        res.send({ ok: false, message: 'problemas al registrar la venta', err: err })
+    }
+}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 //vista previa cart
 export const vistaPreviaCart = async ( req, res ) =>{
     const user = req.user;
@@ -93,3 +146,4 @@ export const UpdateVistaPrevia = async (req, res) => {
         console.log(err);
     }
 }
+*/

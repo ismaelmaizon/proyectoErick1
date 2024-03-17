@@ -1,9 +1,9 @@
 import express  from "express";
 import { agregarProducto, getProductos, getProducto } from "../controllers/crudProductos.js";
 import { addProductCart, createCart, getCart, upDateCart } from "../controllers/crudCarts.js";
-import {login, register } from "../controllers/sessions.js";
+import {getUser, login, register } from "../controllers/sessions.js";
 import passport from "passport";
-import {UpdateVistaPrevia, vistaPreviaCart } from "../controllers/dashboard.js";
+import { registrarVenta } from "../controllers/crudVentas.js";
 
 const app = express()
 
@@ -14,14 +14,9 @@ const router = express.Router()
 // registrat user nuevo
 router.post('/register', register)
 //login user
-router.post('/login', passport.authenticate('local-login', {
-/*
-//esta es la configuracion dependiendo de como resulto el login (te redirecciona a...)
-successRedirect: 'http://localhost:5173/',  // caso exitoso
-failureRedirect: 'http://localhost:5173/register', // caso no exitoso
-passReqToCallback: true,*/
-session: false
-}), login)
+router.post('/login', passport.authenticate('local-login', {session: false}), login)
+//obtener info del user
+router.get('/getuser',passport.authenticate('jwt', {session: false}), getUser)
 
 
 
@@ -31,15 +26,10 @@ router.get('/carts/:cid', passport.authenticate('jwt', {session: false}),getCart
 //agregar producto al carrito
 router.post('/carts/:cid/product/:pid', passport.authenticate('jwt', {session: false}), addProductCart)
 //actualizar cart
-router.put('/carts/:cid', passport.authenticate('jwt', {session: false}), upDateCart)
+router.post('/carts/:cid', passport.authenticate('jwt', {session: false}), upDateCart)
+//registrar venta
+router.post('/registrarVenta', passport.authenticate('jwt', {session: false}), registrarVenta)
 
-
-/*
-// vista previa dashboard
-router.get('/carts',passport.authenticate('jwt', {session: false}), vistaPreviaCart)
-// updateCart
-router.post('/UpDateCarts',passport.authenticate('jwt', {session: false}), UpdateVistaPrevia)
-*/
 
 
 // rutas productos
@@ -61,9 +51,7 @@ router.get('/logout', (req, res) => {
     res.session.destry( err => {
         if(!err) res.send('logout ok')
         else res.send({status: 'logout ERROR', body: err})
-    } 
-
-     )
+    })
 } )
 
 

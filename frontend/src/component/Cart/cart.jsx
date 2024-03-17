@@ -3,17 +3,51 @@ import React, { useContext, useEffect, useState } from 'react';
 import { MiContexto } from '../context/contex';
 import './cart.css'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 function Cart () {
 
+    const router = useNavigate()
     
-    const { dashBoard} = useContext(MiContexto)
+    const { dashBoard, cartID} = useContext(MiContexto)
 
     const [cart, setCart] = useState([])
+    const [total, setTotal] = useState(dashBoard.total)
+
+
+    //concretar venta 
+    const registrarVenta = async (cart, total) => {
+        let venta = {
+            products: cart,
+            total: total
+        }
+        try {
+            const response = await axios.post(`http://localhost:8080/api/auth/registrarVenta`, venta, {withCredentials: true});
+            console.log('registrar venta:', response);
+            return response
+        } catch (error) {
+            console.log('Error al registrar venta', error);
+        }
+    }
+
+
+    //actualizar carrito
+    const upDateCart = async ( cartID , cartUpdate) => {
+    
+        try {
+            console.log(cartID);
+            const response = await axios.post(`http://localhost:8080/api/auth/carts/${cartID}`, cartUpdate, {withCredentials: true});
+            console.log('actualizacion:', response);
+            return response
+        } catch (error) {
+            console.log('Error al actalizar cart:', error);
+        }
+    }
 
     //eliminar producto del carrito
     const deletProductCart = async ( producto) => {
+        let total = 0
         let cart2 = []
         cart.map( (el) => {
             if (el._id != producto._id) {
@@ -21,6 +55,8 @@ function Cart () {
             } 
         })
         setCart(cart2)
+        cart2.map( (p) =>{ total += p.totalParcial  })
+        setTotal(total)
     }
     
     useEffect( ()=>{
@@ -69,27 +105,28 @@ function Cart () {
                 </div>
             <div>
                 <h1>
-                    Total: {dashBoard.total}
+                    Total: {total}
                 </h1>
-                <Button variant='solid' colorScheme='blue' onClick={async () =>  {
-                    /*
-                    upDateCart(cart);
-                    const newCart = {
-                        name: 'Isma Prueba',
-                        lastName: 'Maizon Prueba',
-                        email: 'Isma@gmail.com',
-                        cellphone: 351252525,
-                        total: total,
-                        products: cart
+                <Button variant='solid' colorScheme='blue' onClick={ async () => {
+                    const res = await registrarVenta(cart, total)
+                    console.log(res);
+                    if(res.status == 200){
+                        router('/')
                     }
-                    try {
-                        const response = await axios.post('http://localhost:8080/api/auth/crearCarrito', newCart);
-                        console.log('Carrito creado:', response.data);
-                      } catch (error) {
-                        console.error('Error al crear el producto:', error);
-                      }*/
                 } } >
                     concretar compra
+                </Button>
+                <Button variant='solid' colorScheme='blue'>
+                    volver
+                </Button>
+                <Button variant='solid' colorScheme='blue' onClick={ async () => {
+                    const res = await upDateCart(cartID, cart)
+                    console.log(res);
+                    if(res.status == 200){
+                        router('/')
+                    }
+                }}>
+                    guardar cambios
                 </Button>
             </div>
         </div>)

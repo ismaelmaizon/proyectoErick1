@@ -1,5 +1,5 @@
 import {Button, Card, CardBody, Heading, Image, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './inicio.css'
 import { Link } from "react-router-dom";
 
@@ -9,11 +9,33 @@ import axios from "axios";
 
 function Inicio() {
 
-    const { user, getCart, cartID, cart } = useContext(MiContexto)
+    const { user, setUser ,  getCart, cartID, cart, setCartID } = useContext(MiContexto)
+
+    const [ session, setSession ] = useState('sesion expiró')
+
+    const getUser = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/api/auth/getuser', {withCredentials: true});
+            // Manejar la respuesta del servidor y actualizar el estado con los productos obtenidos
+            console.log('getUser:', response.data);
+            console.log('getUserEmail:', response.data.email);
+            console.log('getUserCart:', response.data.cart);
+            setUser(response.data.email)
+            setSession(`hola ${response.data.name}`)
+            setCartID(response.data.cart)
+            getCart(response.data.cart)
+
+            return ({ status: 200 })
+
+
+        } catch (error) {
+            console.error('Error al obtener los productos:', error);
+            return ({ status: 400 })
+        }
+    }
 
     console.log('user: ');
     console.log(user);
-    console.log(user.length);
 
     
 
@@ -23,7 +45,7 @@ function Inicio() {
         console.log(user.email);
         console.log('cart:');
         console.log(cart);
-        getCart(cartID);
+        getUser()
 
     } , [] )
 
@@ -31,6 +53,9 @@ function Inicio() {
     
 
         <div className="container_Inicio">
+            <div>
+                <h2> { session } </h2>
+            </div>
             <div className="container_Skills" >
                 <h1 className="container_Skills_h1" >Productos</h1>
             </div>
@@ -143,8 +168,6 @@ function Inicio() {
                 </TabPanels>
                 
             </Tabs>
-            
-            <h1>AllProducts</h1>
             <Allproductos/>
         </div>
 

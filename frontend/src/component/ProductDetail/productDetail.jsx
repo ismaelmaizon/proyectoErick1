@@ -76,7 +76,7 @@ function ProductDetail() {
     
     const verificacionLogin = async (response) => {
         await Swal.fire({
-            title: "para poder agregar un producto, es necesario Iniciar Sesion",
+            title: "para poder agregar un producto, es necesario Registrarse",
             showDenyButton: true,
             denyButtonText: 'no estoy interesado',
             showConfirmButton: true,
@@ -93,6 +93,9 @@ function ProductDetail() {
         getProduct(productoId)
         console.log('info cart:');
         console.log(cartID);
+        console.log('info user:');
+        console.log(user);
+
     }, [])
     
     //Logs
@@ -136,7 +139,7 @@ function ProductDetail() {
                     </div>
                     <CardFooter>
                     <Button variant='solid' colorScheme='blue' onClick={ async () =>  {
-                        if (user.user === 'null'  ){
+                        if (user === 'null'  ){
                                 const res = await verificacionLogin(response)
                                 console.log('redirect:' + res);
                                 console.log(res);

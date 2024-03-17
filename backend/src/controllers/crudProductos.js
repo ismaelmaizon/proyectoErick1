@@ -26,7 +26,7 @@ export const agregarProducto = async (req, res) => {
     }
     let result = await productsModel.create(newProduct)
     console.log(result);
-    res.send( { status : 200 /*producto: result*/ } )
+    res.send( { status : 200 ,producto: result } )
 }
 
 //obtener todos los productos

@@ -69,43 +69,19 @@ export const addProductCart = async (req, res) => {
             console.log(err);
             return ({ ok: false, message: 'problemas al agregar producto al carrito, necesario volver a iniciar sesion', err: err })
         }
-    
-
-    /*
-    const productID = req.params.pid
-    let ex = true
-
-
-    try{
-        const cart = await cartModel.findOne({ _id: cartID })
-        cart.products.map( (prod) =>{
-            if (prod.id === productID){
-                ex = false
-                prod.quiantity += 1
-            }
-        } )
-        if (ex) {
-            cart.products.push(productID)
-        }
-        cart.save()
-        console.log('producto agregado');
-        res.send({ok: true, message: 'producto agregado', cart: cart})
-
-    }catch(err){
-        console.log(err);
-        return ({ ok: false, message: 'problemas al agregar producto al carrito', err: err })
-    }
-    */
-
 }
 
-// eliminar producto del carrito carrito
+// actualizacion del carrito carrito
 export const upDateCart = async (req, res) => {
     const cartID = req.params.cid
-    const {cartupdate} = req.body
+    const newCart  = req.body
+    //const productsArray = JSON.parse(products);
     const user = req.user;
     console.log('user Finish: ');
     console.log(user);
+    console.log(newCart);
+    //productsArray.map((el) => { console.log(el);}) 
+
     
     try{
         let c = []
@@ -113,7 +89,7 @@ export const upDateCart = async (req, res) => {
         const cart = await cartModel.findOne({ _id: cartID })
         console.log(cart);
         cart.products.map((elc) => {
-            cartupdate.products.map((elup) => {
+            newCart.map((elup) => {
                 if( elc._id.toString() === elup._id.toString() ){
                     p.quiantity = elup.quiantity
                     p._id = elup._id
@@ -124,7 +100,7 @@ export const upDateCart = async (req, res) => {
         })
         cart.products = c
         console.log(cart);
-        //cart.save()
+        cart.save()
         res.send({ok: true, message: 'updateCart', cart: cart})
         
     }catch(err){
