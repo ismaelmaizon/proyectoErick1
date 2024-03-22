@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MiContexto } from "../context/contex";
-import { Button, ButtonGroup, Card, CardBody, CardFooter, Divider, Grid, Heading, Image, LinkBox, LinkOverlay, Menu, MenuButton, MenuItem, MenuList, Stack, Text, grid } from "@chakra-ui/react";
+import { Button, Card, CardFooter, Divider, Grid, Heading, Image, LinkBox, LinkOverlay, Menu, MenuButton, MenuItem, MenuList, Stack, Text, grid } from "@chakra-ui/react";
 
 import './allproducts.css'
 import { Link } from "react-router-dom";

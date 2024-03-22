@@ -4,6 +4,7 @@ import { MiContexto } from '../context/contex';
 import './cart.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import mpago from '../mercadoPago/mp';
 
 
 function Cart () {
@@ -128,6 +129,12 @@ function Cart () {
                 }}>
                     guardar cambios
                 </Button>
+            </div>
+            <div>
+                <Button onClick={  ()=>{ mpago() }}>
+                    Pagar
+                </Button>
+                
             </div>
         </div>)
 
