@@ -4,17 +4,26 @@ const client = new MercadoPagoConfig({ accessToken: 'YOUR_ACCESS_TOKEN' });
 
 const preference = new Preference(client);
 
-preference.create({
-  body: {
-    false:null,
-    items: [
-      {
-        title: 'My product',
-        quantity: 1,
-        unit_price: 2000
+export const mercadoPago = async () =>{
+  try{
+    const result = await preference.create({
+      body:{
+        items: [
+          {
+            title: 'My product',
+            quantity: 1,
+            unit_price: 2000
+          }
+        ],
       }
-    ],
+    })
+
+
+
+
+  }catch(err){
+    console.log('problemas al realizar el pago');
   }
-})
-.then(console.log)
-.catch(console.log);
+}
+
+
