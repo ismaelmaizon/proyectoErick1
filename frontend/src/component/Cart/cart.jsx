@@ -4,38 +4,57 @@ import { MiContexto } from '../context/contex';
 import './cart.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import mpago from '../mercadoPago/mp';
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+
 
 
 function Cart () {
+    
+    
+    initMercadoPago('TEST-08d56d99-cf75-400a-9b5e-25195970d65d', { locale: 'es-AR' });
 
     const router = useNavigate()
     
-    const { dashBoard, cartID} = useContext(MiContexto)
+    const { dashBoard, cartID, user} = useContext(MiContexto)
 
     const [cart, setCart] = useState([])
     const [total, setTotal] = useState(dashBoard.total)
+    
+    const [preferenceId, setpreferenceId] = useState(null)
 
 
     //concretar venta 
-    const registrarVenta = async (cart, total) => {
-        let venta = {
+    const registrarVenta = async (cart, total, user) => {
+        let body = {
+            title: `carrito de : ${user}`,
             products: cart,
             total: total
         }
+        
         try {
-            const response = await axios.post(`http://localhost:8080/api/auth/registrarVenta`, venta, {withCredentials: true});
+            const response = await axios.post(`http://localhost:8080/api/auth/registrarVenta`, body, {withCredentials: true});
             console.log('registrar venta:', response);
-            return response
+            console.log('registrar venta2:', response.data);
+            const { id } = response.data.pago
+            console.log('id: ');
+            console.log(id);
+            return id
         } catch (error) {
             console.log('Error al registrar venta', error);
         }
     }
 
+    const andleBuy = async (cart, total, user) => {
+        const id = await registrarVenta(cart, total, user)
+        console.log('respuesta id: ');
+        console.log(id);
+        if (id){
+            setpreferenceId(id)
+        }
+    }
 
     //actualizar carrito
     const upDateCart = async ( cartID , cartUpdate) => {
-    
         try {
             console.log(cartID);
             const response = await axios.post(`http://localhost:8080/api/auth/carts/${cartID}`, cartUpdate, {withCredentials: true});
@@ -109,7 +128,7 @@ function Cart () {
                     Total: {total}
                 </h1>
                 <Button variant='solid' colorScheme='blue' onClick={ async () => {
-                    const res = await registrarVenta(cart, total)
+                    const res = await andleBuy(cart, total, user)
                     console.log(res);
                     if(res.status == 200){
                         router('/')
@@ -117,6 +136,7 @@ function Cart () {
                 } } >
                     concretar compra
                 </Button>
+               
                 <Button variant='solid' colorScheme='blue'>
                     volver
                 </Button>
@@ -130,17 +150,11 @@ function Cart () {
                     guardar cambios
                 </Button>
             </div>
-            <div>
-                <Button onClick={  ()=>{ mpago() }}>
-                    Pagar
-                </Button>
-                
-            </div>
         </div>)
 
 
 }
 
-
+/*  {preferenceId && <Wallet initialization={{preferenceId: preferenceId}} />}  */ 
 
 export default Cart;

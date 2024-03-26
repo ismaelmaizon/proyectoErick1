@@ -1,6 +1,17 @@
-import sendEmail from '../mailer/mailer.js'
+import 'dotenv/config'
 
+import sendEmail from '../mailer/mailer.js'
 import ventasModel from '../db/models/ventas.model.js';
+
+// Step 1: Import the parts of the module you want to use
+import { MercadoPagoConfig, Preference } from 'mercadopago';
+
+// Step 2: Initialize the client object
+const client = new MercadoPagoConfig({ accessToken: 'TEST-6090537087039184-032214-2a5ab98c92c349655ac23494c1bec299-548398074' }); //options: { timeout: 5000, idempotencyKey: 'abc' }
+
+// Step 3: Initialize the API object
+const preference = new Preference(client);
+
 
 //mostrar venta segun codigo id
 export const getVenta = async (req, res) => {
@@ -17,6 +28,7 @@ export const registrarVenta = async (req, res) => {
     const venta = req.body
     console.log(user);
     console.log(venta);
+    console.log(venta.products);
     
     try{
         const newVenta = {
@@ -24,17 +36,48 @@ export const registrarVenta = async (req, res) => {
             products: venta.products,
             total: venta.total
         } 
-        const response = await ventasModel.create(newVenta)
-        console.log(response);
-        console.log(response._id);
-        if (response) {
+        // Step 4: Create the request object
+        const body = {
+            transaction_amount: venta.total,
+            description: venta.email,
+            payment_method_id: 'visa',
+            payer: {
+                email: 'test_user_104072709@testuser.com'
+            },
+        
+        };
+
+        //const response = await ventasModel.create(newVenta)
+        
+        const response2 = await preference.create({ body:{
+            items:[
+                {
+                    title: user.email,
+                    description: 'carrito de: ' + user.email,
+                    quantity: 1,
+                    unit_price: venta.total,
+                    currency_id: 'ARS',
+                }
+            ],
+            back_urls:{
+                success: 'https://www.google.com.ar',
+                pending: 'https://www.google.com.ar',
+                failure: 'https://www.google.com.ar'
+            }        
+        } })
+        //console.log(response);
+        //console.log(response._id);
+        console.log(response2);
+        console.log(response2.id);
+        /*
+        if (response && response2) {
             sendEmail(user.email, 'codigo de venta', `
             <h1> porfavor no compartir este codigo </h1>
             <h3> con el mismo podra retirar su compra: </h3>
             <h2> ${response._id} </h2>
             `)
         }
-        res.send({ok: true, message: 'ok', venta: response })
+        res.send({ok: true, message: 'ok', venta: response, pago: response2 })*/
 
     }catch(err){
         console.log(err);
