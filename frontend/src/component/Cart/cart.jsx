@@ -33,7 +33,7 @@ function Cart () {
         
         try {
             const response = await axios.post(`http://localhost:8080/api/auth/registrarVenta`, body, {withCredentials: true});
-            console.log('registrar venta:', response);
+            //console.log('registrar venta:', response);
             console.log('registrar venta2:', response.data);
             const { id } = response.data.pago
             console.log('id: ');
@@ -136,7 +136,7 @@ function Cart () {
                 } } >
                     concretar compra
                 </Button>
-               
+                {preferenceId && <Wallet initialization={{preferenceId: preferenceId}} />}
                 <Button variant='solid' colorScheme='blue'>
                     volver
                 </Button>

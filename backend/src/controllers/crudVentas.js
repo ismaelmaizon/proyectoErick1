@@ -52,17 +52,17 @@ export const registrarVenta = async (req, res) => {
         const response2 = await preference.create({ body:{
             items:[
                 {
-                    title: user.email,
-                    description: 'carrito de: ' + user.email,
+                    title: 'test_user_609523444@testuser.com',
+                    description: 'carrito de: atelierBodereau',
                     quantity: 1,
-                    unit_price: venta.total,
+                    unit_price: 100,
                     currency_id: 'ARS',
                 }
             ],
             back_urls:{
-                success: 'https://www.google.com.ar',
+                success: 'http://localhost:5173/',
                 pending: 'https://www.google.com.ar',
-                failure: 'https://www.google.com.ar'
+                failure: 'http://localhost:5173/'
             }        
         } })
         //console.log(response);
@@ -76,8 +76,8 @@ export const registrarVenta = async (req, res) => {
             <h3> con el mismo podra retirar su compra: </h3>
             <h2> ${response._id} </h2>
             `)
-        }
-        res.send({ok: true, message: 'ok', venta: response, pago: response2 })*/
+        }*/
+        res.send({ok: true, message: 'ok', pago: response2 }) //venta: response,
 
     }catch(err){
         console.log(err);
